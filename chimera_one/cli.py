@@ -10,10 +10,14 @@ from .doctor import doctor, load_adapters
 from .federation import federation_report
 from .knowledge import build_index, query
 from .plan import build_plan
+from .protocol import load_json as load_protocol_json, protocol_digest, validate_run
 from .workspace import build_snapshot, load_constellation
 
 
 def _root() -> Path:
+    override = os.getenv("CHIMERA_ONE_ROOT")
+    if override:
+        return Path(override).expanduser().resolve()
     return Path(__file__).resolve().parent.parent
 
 
@@ -93,6 +97,18 @@ def cmd_plan(args: argparse.Namespace) -> int:
     return 0
 
 
+
+def cmd_protocol_digest(args: argparse.Namespace) -> int:
+    value = load_protocol_json(args.path)
+    print(protocol_digest(value))
+    return 0
+
+
+def cmd_protocol_validate(args: argparse.Namespace) -> int:
+    report = validate_run(load_protocol_json(args.path))
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0 if report["valid"] else 3
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="chimera-one", description="CHIMERA-ONE constellation control plane")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -129,6 +145,14 @@ def build_parser() -> argparse.ArgumentParser:
     plan.add_argument("--domain", choices=["general", "rchain-audit"], default="general")
     plan.add_argument("--output")
     plan.set_defaults(func=cmd_plan)
+
+    digest = sub.add_parser("protocol-digest", help="compute the canonical domain-separated protocol digest of JSON")
+    digest.add_argument("path")
+    digest.set_defaults(func=cmd_protocol_digest)
+
+    validate = sub.add_parser("protocol-validate", help="fail-closed validation of a chimera-run/v1 record")
+    validate.add_argument("path")
+    validate.set_defaults(func=cmd_protocol_validate)
     return parser
 
 

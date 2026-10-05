@@ -1,0 +1,12 @@
+.git
+.github
+.chimera
+__pycache__
+*.pyc
+*.pyo
+*.egg-info
+target
+.venv
+venv
+Dockerfile*
+docker-compose*.yml

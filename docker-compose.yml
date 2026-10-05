@@ -1,0 +1,44 @@
+services:
+  control-plane:
+    build:
+      context: .
+      args:
+        SOURCE_REVISION: ${CHIMERA_REVISION:-dev}
+    image: ghcr.io/aixaria0/chimera-one:${CHIMERA_TAG:-dev}
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: ["ALL"]
+    security_opt:
+      - no-new-privileges:true
+    command: ["capabilities"]
+
+  protocol-check:
+    image: ghcr.io/aixaria0/chimera-one:${CHIMERA_TAG:-dev}
+    build:
+      context: .
+      args:
+        SOURCE_REVISION: ${CHIMERA_REVISION:-dev}
+    read_only: true
+    cap_drop: ["ALL"]
+    security_opt:
+      - no-new-privileges:true
+    entrypoint: ["chimera-protocol"]
+    command: ["validate-run", "/opt/chimera-one/tests/vectors/run.valid.json"]
+
+  federation:
+    profiles: ["workspace"]
+    image: ghcr.io/aixaria0/chimera-one:${CHIMERA_TAG:-dev}
+    build:
+      context: .
+      args:
+        SOURCE_REVISION: ${CHIMERA_REVISION:-dev}
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop: ["ALL"]
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ${CHIMERA_WORKSPACE:-..}:/workspace:ro
+    command: ["federation", "--workspace", "/workspace"]

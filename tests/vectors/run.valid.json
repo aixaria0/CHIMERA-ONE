@@ -1,0 +1,35 @@
+{
+  "schema": "chimera-run/v1",
+  "run_id": "run-vector-001",
+  "objective": "verify protocol conformance",
+  "domain": "general",
+  "policy": {
+    "automatic_mutation": false,
+    "automatic_deployment": false,
+    "unrestricted_execution": false,
+    "claim_promotion_requires_evidence": true
+  },
+  "steps": [
+    {
+      "id": "s01",
+      "capability": "ritualgraph.compile",
+      "provider": "RitualGraph",
+      "kind": "plan",
+      "depends_on": [],
+      "trust": {"authority": "bounded", "network": "none", "mutation": "none", "evidence": "digest"},
+      "state": "PLANNED"
+    },
+    {
+      "id": "s02",
+      "capability": "omega.verify",
+      "provider": "CHIMERA-OMEGA",
+      "kind": "verify",
+      "depends_on": ["s01"],
+      "trust": {"authority": "verification", "network": "none", "mutation": "none", "evidence": "reproducible"},
+      "state": "PLANNED"
+    }
+  ],
+  "claims": [
+    {"id": "claim-1", "statement": "protocol vector is valid", "status": "HYPOTHESIS", "evidence": []}
+  ]
+}

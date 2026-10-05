@@ -1,0 +1,55 @@
+name: security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '23 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  rust-supply-chain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - name: Install pinned Rust toolchain
+        run: |
+          rustup toolchain install 1.90.0 --profile minimal
+          rustup override set 1.90.0
+      - name: Install pinned audit tools
+        run: |
+          cargo install cargo-audit --locked --version 0.22.2
+          cargo install cargo-deny --locked --version 0.20.2
+      - run: cargo audit
+      - run: cargo deny check
+      - name: Lockfile must remain stable
+        run: |
+          cargo metadata --locked --format-version 1 >/tmp/cargo-metadata.json
+          git diff --exit-code -- Cargo.lock
+
+  protocol-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.14'
+      - run: python -m compileall -q chimera_one
+      - run: python -m unittest tests.test_protocol -v
+      - name: Prove unsafe policy is rejected
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = json.loads(Path('tests/vectors/run.valid.json').read_text())
+          p['policy']['unrestricted_execution'] = True
+          Path('/tmp/unsafe-run.json').write_text(json.dumps(p))
+          PY
+          if python -m chimera_one protocol-validate /tmp/unsafe-run.json; then
+            echo 'unsafe run was accepted' >&2
+            exit 1
+          fi

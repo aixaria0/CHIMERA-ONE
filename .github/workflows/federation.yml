@@ -1,0 +1,49 @@
+name: federation
+
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  GH_TOKEN: ${{ secrets.CHIMERA_FEDERATION_TOKEN }}
+
+jobs:
+  six-repo-federation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - id: gate
+        name: Check cross-repository credential
+        shell: bash
+        run: |
+          if [ -n "${GH_TOKEN:-}" ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'CHIMERA_FEDERATION_TOKEN is not configured; cross-repo validation is skipped.'
+          fi
+      - name: Clone provider repositories at current default heads
+        if: steps.gate.outputs.enabled == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh repo clone aixaria0/RitualGraph ../RitualGraph -- --depth=1
+          gh repo clone aixaria0/aether-runtime ../aether-runtime -- --depth=1
+          gh repo clone aixaria0/CHIMERA-OMEGA ../CHIMERA-OMEGA-main -- --depth=1
+          gh repo clone aixaria0/chimera-rchain-staking-audit ../chimera-rchain-staking-audit -- --depth=1
+          gh repo clone aixaria0/RCHAIN-COMPLIER ../omega-rchain-complier -- --depth=1
+          gh repo clone aixaria0/Chimera-AG ../Chimera-AG -- --depth=1
+      - name: Validate federation contracts and repository identity
+        if: steps.gate.outputs.enabled == 'true'
+        run: |
+          python -m chimera_one status --workspace ..
+          python -m chimera_one federation --workspace ..
+          python -m chimera_one doctor --workspace ..
+          python -m chimera_one index --workspace .. --output /tmp/knowledge-index.json

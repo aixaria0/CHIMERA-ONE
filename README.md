@@ -26,7 +26,9 @@ Intelligence may propose. Execution must be bounded. Claims require evidence. Ev
 - create a content-addressed local knowledge index without republishing private source;
 - search that local index while preserving repository/path/digest provenance;
 - compile an objective into a bounded multi-repository execution DAG;
-- pin an exact constellation baseline for reproducibility.
+- pin an exact constellation baseline for reproducibility;
+- validate protocol runs through both Python and a deterministic Rust kernel;
+- build a hardened multi-arch container carrying both control-plane and protocol-verifier surfaces.
 
 ## Commands
 
@@ -39,9 +41,23 @@ python -m chimera_one index --workspace ..
 python -m chimera_one query evidence
 python -m chimera_one plan "analyze this system change"
 python -m chimera_one plan "falsify this staking claim" --domain rchain-audit
+python -m chimera_one protocol-validate tests/vectors/run.valid.json
+chimera-protocol validate-run tests/vectors/run.valid.json
 ```
 
-The planner does not execute its plan yet. That separation is intentional: adapters must prove their trust and evidence contracts before orchestration is allowed to invoke them.
+The planner does not execute its plan yet. That separation is intentional: adapters must prove their trust and evidence contracts before orchestration is allowed to invoke them. The Rust protocol kernel validates and digests plans; it is not an unrestricted executor.
+
+## Build surfaces
+
+```sh
+make test
+make conformance
+docker compose run --rm control-plane
+docker compose run --rm protocol-check
+CHIMERA_WORKSPACE=.. docker compose --profile workspace run --rm federation
+```
+
+GitHub Actions separately gate Python/Rust conformance, Rust supply-chain audits, multi-architecture container builds, release packaging, and optional live six-repository federation checks. See `docs/BUILD_AND_SUPPLY_CHAIN.md`.
 
 ## Architecture
 
