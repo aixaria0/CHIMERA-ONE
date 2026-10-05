@@ -5,7 +5,7 @@ COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
 COPY crates ./crates
 RUN cargo build --locked --release -p chimera-protocol
 
-FROM python:3.12-slim-bookworm AS python-builder
+FROM python:3.14-slim-bookworm AS python-builder
 WORKDIR /src
 RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
@@ -13,7 +13,7 @@ COPY pyproject.toml README.md ./
 COPY chimera_one ./chimera_one
 RUN pip install --no-cache-dir --no-deps .
 
-FROM python:3.12-slim-bookworm AS runtime
+FROM python:3.14-slim-bookworm AS runtime
 ARG SOURCE_REVISION=unknown
 LABEL org.opencontainers.image.source="https://github.com/aixaria0/CHIMERA-ONE" \
       org.opencontainers.image.revision="${SOURCE_REVISION}"
