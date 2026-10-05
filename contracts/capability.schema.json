@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aixaria.dev/chimera-one/capability/v1",
+  "title": "Chimera Capability v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "provider", "version", "kind", "inputs", "outputs", "trust"],
+  "properties": {
+    "schema": {"const": "chimera-capability/v1"},
+    "id": {"type": "string", "minLength": 1},
+    "provider": {"type": "string", "minLength": 1},
+    "version": {"type": "string", "minLength": 1},
+    "kind": {"enum": ["reason", "plan", "simulate", "execute", "observe", "verify", "attest", "audit"]},
+    "inputs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "outputs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "trust": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority", "network", "mutation", "evidence"],
+      "properties": {
+        "authority": {"enum": ["advisory", "bounded", "verification"]},
+        "network": {"enum": ["none", "loopback", "explicit"]},
+        "mutation": {"enum": ["none", "workspace", "external-explicit"]},
+        "evidence": {"enum": ["none", "digest", "receipt", "reproducible"]}
+      }
+    }
+  }
+}

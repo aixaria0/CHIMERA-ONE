@@ -1,0 +1,11 @@
+{
+  "schema": "chimera-constellation/v1",
+  "repositories": [
+    {"name":"RitualGraph","url":"https://github.com/aixaria0/RitualGraph","role":"invariants"},
+    {"name":"aether-runtime","url":"https://github.com/aixaria0/aether-runtime","role":"bounded-execution"},
+    {"name":"CHIMERA-OMEGA","url":"https://github.com/aixaria0/CHIMERA-OMEGA","role":"evidence-kernel"},
+    {"name":"chimera-rchain-staking-audit","url":"https://github.com/aixaria0/chimera-rchain-staking-audit","role":"adversarial-domain"},
+    {"name":"RCHAIN-COMPLIER","url":"https://github.com/aixaria0/RCHAIN-COMPLIER","role":"assurance"},
+    {"name":"Chimera-AG","url":"https://github.com/aixaria0/Chimera-AG","role":"intelligence-routing"}
+  ]
+}

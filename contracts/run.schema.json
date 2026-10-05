@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aixaria.dev/chimera-one/run/v1",
+  "title": "Chimera Run v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "run_id", "objective", "steps", "claims"],
+  "properties": {
+    "schema": {"const": "chimera-run/v1"},
+    "run_id": {"type": "string", "minLength": 1},
+    "objective": {"type": "string", "minLength": 1},
+    "steps": {"type": "array", "items": {"type": "object"}},
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "statement", "status"],
+        "properties": {
+          "id": {"type": "string"},
+          "statement": {"type": "string"},
+          "status": {"enum": ["HYPOTHESIS", "PLAUSIBLE", "OBSERVED", "REPRODUCED", "CORROBORATED", "VERIFIED_WITHIN_SCOPE", "CONTRADICTED", "INCONCLUSIVE", "UNKNOWN"]},
+          "evidence": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}
