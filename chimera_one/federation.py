@@ -31,7 +31,7 @@ def validate_provider(data: dict[str, Any]) -> None:
         raise FederationError("provider requires boundaries")
     seen: set[str] = set()
     for entry in data["entrypoints"]:
-        for field in ("capability", "command", "mode", "network", "mutation"):
+        for field in ("capability", "mode", "network", "mutation"):
             if field not in entry:
                 raise FederationError(f"entrypoint missing {field}")
         cap = entry["capability"]
@@ -40,8 +40,28 @@ def validate_provider(data: dict[str, Any]) -> None:
         if cap in seen:
             raise FederationError(f"duplicate entrypoint capability: {cap}")
         seen.add(cap)
-        if not isinstance(entry["command"], list) or not entry["command"] or any(not isinstance(v, str) for v in entry["command"]):
-            raise FederationError(f"invalid command for {cap}")
+
+        has_command = "command" in entry
+        has_service = "transport" in entry or "endpoint" in entry
+        if has_command == has_service:
+            raise FederationError(
+                f"entrypoint {cap} requires exactly one invocation form: command or transport+endpoint"
+            )
+        if has_command:
+            command = entry["command"]
+            if not isinstance(command, list) or not command or any(not isinstance(v, str) or not v for v in command):
+                raise FederationError(f"invalid command for {cap}")
+        else:
+            if "transport" not in entry or "endpoint" not in entry:
+                raise FederationError(f"service entrypoint {cap} requires transport and endpoint")
+            if not isinstance(entry["transport"], str) or not entry["transport"]:
+                raise FederationError(f"invalid transport for {cap}")
+            endpoint = entry["endpoint"]
+            if not isinstance(endpoint, dict) or not endpoint:
+                raise FederationError(f"invalid endpoint for {cap}")
+            protocol = endpoint.get("protocol")
+            if not isinstance(protocol, str) or not protocol:
+                raise FederationError(f"service endpoint {cap} requires protocol")
 
 
 def federation_report(

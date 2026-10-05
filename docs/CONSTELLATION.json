@@ -17,8 +17,7 @@
       "name": "CHIMERA-OMEGA",
       "url": "https://github.com/aixaria0/CHIMERA-OMEGA",
       "checkout": "CHIMERA-OMEGA",
-      "role": "evidence-kernel",
-      "provider_checkout": "CHIMERA-OMEGA-main"
+      "role": "evidence-kernel"
     },
     {
       "name": "chimera-rchain-staking-audit",

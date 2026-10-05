@@ -124,7 +124,7 @@
     },
     {
       "provider": "CHIMERA-OMEGA",
-      "checkout": "CHIMERA-OMEGA-main",
+      "checkout": "CHIMERA-OMEGA",
       "version": "0.2.0",
       "required_tools": [
         "cargo"
