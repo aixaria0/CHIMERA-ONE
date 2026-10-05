@@ -52,5 +52,6 @@ The first ARM64 UserLAnd reference host established these native signals:
 - Aether C++ execution engine: configured via distro `pkg-config` gRPC fallback and `compute_test` passed.
 - Chimera-AG: 80 source tests passed.
 - RCHAIN-COMPLIER assurance lane: 13 assurance tests passed, with assurance typecheck and lint passing.
+- RCHAIN-COMPLIER packaged `@aixaria/assurance-engine@0.3.0` tarball passed its offline consumer verification, including tamper rejection, SDK/type exports and supervisor-kill recovery.
 
 These are host observations, not universal correctness claims.
