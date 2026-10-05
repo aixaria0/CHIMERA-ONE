@@ -41,7 +41,6 @@
         "additionalProperties": false,
         "required": [
           "capability",
-          "command",
           "mode",
           "network",
           "mutation"
@@ -79,8 +78,86 @@
               "workspace",
               "external-explicit"
             ]
+          },
+          "transport": {
+            "enum": [
+              "http",
+              "grpc",
+              "stdio",
+              "jsonl"
+            ]
+          },
+          "endpoint": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "protocol"
+            ],
+            "properties": {
+              "protocol": {
+                "type": "string",
+                "minLength": 1
+              },
+              "method": {
+                "enum": [
+                  "GET",
+                  "POST",
+                  "PUT",
+                  "PATCH",
+                  "DELETE"
+                ]
+              },
+              "path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "health_path": {
+                "type": "string",
+                "minLength": 1
+              },
+              "service": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rpc": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
           }
-        }
+        },
+        "oneOf": [
+          {
+            "required": [
+              "command"
+            ],
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "transport"
+                  ]
+                },
+                {
+                  "required": [
+                    "endpoint"
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "required": [
+              "transport",
+              "endpoint"
+            ],
+            "not": {
+              "required": [
+                "command"
+              ]
+            }
+          }
+        ]
       }
     },
     "boundaries": {
