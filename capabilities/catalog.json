@@ -45,7 +45,7 @@
       "schema": "chimera-capability/v1",
       "id": "chimera.route",
       "provider": "Chimera-AG",
-      "version": "0.12",
+      "version": "0.13.0",
       "kind": "plan",
       "inputs": [
         "task",
@@ -65,7 +65,7 @@
       "schema": "chimera-capability/v1",
       "id": "chimera.council",
       "provider": "Chimera-AG",
-      "version": "0.12",
+      "version": "0.13.0",
       "kind": "reason",
       "inputs": [
         "task",

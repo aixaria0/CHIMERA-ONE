@@ -6,6 +6,7 @@ import os
 from pathlib import Path
 
 from .catalog import load_catalog
+from .doctor import doctor, load_adapters
 from .knowledge import build_index, query
 from .plan import build_plan
 from .workspace import build_snapshot, load_constellation
@@ -68,6 +69,12 @@ def cmd_query(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_doctor(args: argparse.Namespace) -> int:
+    report = doctor(_workspace(args.workspace), load_adapters(_root() / "adapters" / "catalog.json"))
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0 if report["ready"] else 2
+
+
 def cmd_plan(args: argparse.Namespace) -> int:
     caps = load_catalog(_root() / "capabilities" / "catalog.json")
     plan = build_plan(args.objective, args.domain, caps)
@@ -99,6 +106,10 @@ def build_parser() -> argparse.ArgumentParser:
     search.add_argument("--index")
     search.add_argument("--limit", type=int, default=20)
     search.set_defaults(func=cmd_query)
+
+    doctor_parser = sub.add_parser("doctor", help="check whether each declared provider is actually callable on this machine")
+    doctor_parser.add_argument("--workspace")
+    doctor_parser.set_defaults(func=cmd_doctor)
 
     plan = sub.add_parser("plan", help="compile an objective into a bounded cross-repository execution DAG")
     plan.add_argument("objective")

@@ -1,0 +1,191 @@
+{
+  "schema": "chimera-adapter-catalog/v1",
+  "providers": [
+    {
+      "provider": "RitualGraph",
+      "checkout": "RitualGraph",
+      "version": "0.1.0",
+      "required_tools": [
+        "python3"
+      ],
+      "required_files": [
+        "pyproject.toml",
+        "ritualgraph/cli.py"
+      ],
+      "entrypoints": [
+        {
+          "capability": "ritualgraph.compile",
+          "command": [
+            "ritualgraph",
+            "compile"
+          ],
+          "mode": "bounded-execution"
+        },
+        {
+          "capability": "ritualgraph.evaluate-invariants",
+          "command": [
+            "ritualgraph",
+            "run"
+          ],
+          "mode": "verification"
+        }
+      ]
+    },
+    {
+      "provider": "Chimera-AG",
+      "checkout": "Chimera-AG",
+      "version": "0.13.0",
+      "required_tools": [
+        "python3"
+      ],
+      "required_files": [
+        "pyproject.toml",
+        "chimera/routing_cli.py",
+        "chimera/council_cli.py"
+      ],
+      "entrypoints": [
+        {
+          "capability": "chimera.route",
+          "command": [
+            "chimera-route"
+          ],
+          "mode": "advisory"
+        },
+        {
+          "capability": "chimera.council",
+          "command": [
+            "chimera-council"
+          ],
+          "mode": "advisory"
+        }
+      ]
+    },
+    {
+      "provider": "aether-runtime",
+      "checkout": "aether-runtime",
+      "version": "0.2",
+      "required_tools": [
+        "docker"
+      ],
+      "required_files": [
+        "docker-compose.yml",
+        "proto/execution.proto",
+        "apps/control-plane/Cargo.toml"
+      ],
+      "entrypoints": [
+        {
+          "capability": "aether.execute-allowlisted",
+          "command": [
+            "docker",
+            "compose",
+            "up"
+          ],
+          "mode": "bounded-execution"
+        }
+      ]
+    },
+    {
+      "provider": "RCHAIN-COMPLIER",
+      "checkout": "omega-rchain-complier",
+      "version": "0.3.0-assurance",
+      "required_tools": [
+        "node",
+        "npm"
+      ],
+      "required_files": [
+        "package.json",
+        "src/lib/assurance/cli.ts",
+        "docs/ASSURANCE_ENGINE.md"
+      ],
+      "entrypoints": [
+        {
+          "capability": "assurance.run",
+          "command": [
+            "npm",
+            "run",
+            "assurance",
+            "--",
+            "run"
+          ],
+          "mode": "verification"
+        },
+        {
+          "capability": "assurance.verify",
+          "command": [
+            "npm",
+            "run",
+            "assurance",
+            "--",
+            "verify"
+          ],
+          "mode": "verification"
+        }
+      ]
+    },
+    {
+      "provider": "CHIMERA-OMEGA",
+      "checkout": "CHIMERA-OMEGA-main",
+      "version": "0.2.0",
+      "required_tools": [
+        "cargo"
+      ],
+      "required_files": [
+        "Cargo.toml",
+        "rust-toolchain.toml",
+        "rust/src"
+      ],
+      "entrypoints": [
+        {
+          "capability": "omega.verify",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "--bin",
+            "omega",
+            "--",
+            "verify"
+          ],
+          "mode": "verification"
+        },
+        {
+          "capability": "omega.replay",
+          "command": [
+            "cargo",
+            "run",
+            "--locked",
+            "--bin",
+            "omega",
+            "--",
+            "replay"
+          ],
+          "mode": "verification"
+        }
+      ]
+    },
+    {
+      "provider": "chimera-rchain-staking-audit",
+      "checkout": "chimera-rchain-staking-audit",
+      "version": "0.1.0",
+      "required_tools": [
+        "python3"
+      ],
+      "required_files": [
+        "pyproject.toml",
+        "harness/runner.py",
+        "INVARIANTS.md"
+      ],
+      "entrypoints": [
+        {
+          "capability": "rchain-audit.first-divergence",
+          "command": [
+            "python3",
+            "-m",
+            "harness.runner"
+          ],
+          "mode": "audit"
+        }
+      ]
+    }
+  ]
+}

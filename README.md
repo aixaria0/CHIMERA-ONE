@@ -32,6 +32,7 @@ Intelligence may propose. Execution must be bounded. Claims require evidence. Ev
 
 ```sh
 python -m chimera_one capabilities
+python -m chimera_one doctor --workspace ..
 python -m chimera_one status --workspace ..
 python -m chimera_one index --workspace ..
 python -m chimera_one query evidence
