@@ -1,0 +1,71 @@
+{
+  "captured_date": "2026-10-05",
+  "knowledge_index_digest": "1959dbe8baccfa8710fc6faf96ba55e3e4279201f3fdfffc882e7118c8548a7f",
+  "knowledge_records": 540,
+  "note": "Post-federation identity/revision pin after provider manifests were added and local default-branch clones synchronized. Provenance only; not a correctness claim.",
+  "phase": "federated-provider-contracts",
+  "repositories": [
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "136778ee6a1cbfbb11abeaafe7c4812f2d2633db",
+      "name": "RitualGraph",
+      "origin_matches": true,
+      "role": "invariants",
+      "tracked_files": 20,
+      "url": "https://github.com/aixaria0/RitualGraph"
+    },
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "10f3844c67ce9e3b2f6df981c33d88a000650a2f",
+      "name": "aether-runtime",
+      "origin_matches": true,
+      "role": "bounded-execution",
+      "tracked_files": 32,
+      "url": "https://github.com/aixaria0/aether-runtime"
+    },
+    {
+      "branch": "feat/evidence-dag-kernel-v2",
+      "dirty": false,
+      "head": "df163bdbd21873ed0c36a0379c6b88c20c55dfe9",
+      "name": "CHIMERA-OMEGA",
+      "origin_matches": true,
+      "role": "evidence-kernel",
+      "tracked_files": 22,
+      "url": "https://github.com/aixaria0/CHIMERA-OMEGA"
+    },
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "9d231482bb51bbce3887d04b1955f39c84507e48",
+      "name": "chimera-rchain-staking-audit",
+      "origin_matches": true,
+      "role": "adversarial-domain",
+      "tracked_files": 89,
+      "url": "https://github.com/aixaria0/chimera-rchain-staking-audit"
+    },
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "2a2278f4e9cc23d7c5ad3e7a5e1c4128df873089",
+      "name": "RCHAIN-COMPLIER",
+      "origin_matches": true,
+      "role": "assurance",
+      "tracked_files": 322,
+      "url": "https://github.com/aixaria0/RCHAIN-COMPLIER"
+    },
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "8532958b598659e46058ca148ba3c7df99ec0239",
+      "name": "Chimera-AG",
+      "origin_matches": true,
+      "role": "intelligence-routing",
+      "tracked_files": 85,
+      "url": "https://github.com/aixaria0/Chimera-AG"
+    }
+  ],
+  "schema": "chimera-constellation-baseline/v1",
+  "source_snapshot_digest": "e29e7cdf78f2b7b9d0abeace30a2f9b764e1cec5bd22638a2788b3e5a133d7bf"
+}

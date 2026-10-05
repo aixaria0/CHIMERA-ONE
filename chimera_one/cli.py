@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .catalog import load_catalog
 from .doctor import doctor, load_adapters
+from .federation import federation_report
 from .knowledge import build_index, query
 from .plan import build_plan
 from .workspace import build_snapshot, load_constellation
@@ -69,6 +70,14 @@ def cmd_query(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_federation(args: argparse.Namespace) -> int:
+    constellation = load_constellation(_root() / "docs" / "CONSTELLATION.json")
+    caps = load_catalog(_root() / "capabilities" / "catalog.json")
+    report = federation_report(_workspace(args.workspace), constellation, caps)
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0 if report["valid"] else 2
+
+
 def cmd_doctor(args: argparse.Namespace) -> int:
     report = doctor(_workspace(args.workspace), load_adapters(_root() / "adapters" / "catalog.json"))
     print(json.dumps(report, indent=2, sort_keys=True))
@@ -106,6 +115,10 @@ def build_parser() -> argparse.ArgumentParser:
     search.add_argument("--index")
     search.add_argument("--limit", type=int, default=20)
     search.set_defaults(func=cmd_query)
+
+    federation = sub.add_parser("federation", help="validate provider-owned manifests against the central constellation and capability registry")
+    federation.add_argument("--workspace")
+    federation.set_defaults(func=cmd_federation)
 
     doctor_parser = sub.add_parser("doctor", help="check whether each declared provider is actually callable on this machine")
     doctor_parser.add_argument("--workspace")

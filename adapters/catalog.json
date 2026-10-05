@@ -177,13 +177,18 @@
       ],
       "entrypoints": [
         {
-          "capability": "rchain-audit.first-divergence",
+          "capability": "rchain-audit.capture-sr001",
           "command": [
-            "python3",
-            "-m",
-            "harness.runner"
+            "chimera-capture-sr001"
           ],
           "mode": "audit"
+        },
+        {
+          "capability": "rchain-audit.replay-sr001",
+          "command": [
+            "chimera-replay-sr001"
+          ],
+          "mode": "verification"
         }
       ]
     }

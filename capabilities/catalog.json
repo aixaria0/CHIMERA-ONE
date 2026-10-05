@@ -5,7 +5,7 @@
       "schema": "chimera-capability/v1",
       "id": "ritualgraph.compile",
       "provider": "RitualGraph",
-      "version": "0.1",
+      "version": "0.1.0",
       "kind": "simulate",
       "inputs": [
         "threat-model"
@@ -25,7 +25,7 @@
       "schema": "chimera-capability/v1",
       "id": "ritualgraph.evaluate-invariants",
       "provider": "RitualGraph",
-      "version": "0.1",
+      "version": "0.1.0",
       "kind": "verify",
       "inputs": [
         "typed-dag",
@@ -108,7 +108,7 @@
       "schema": "chimera-capability/v1",
       "id": "assurance.run",
       "provider": "RCHAIN-COMPLIER",
-      "version": "0.3.0",
+      "version": "0.3.0-assurance",
       "kind": "verify",
       "inputs": [
         "bounded-workload",
@@ -129,7 +129,7 @@
       "schema": "chimera-capability/v1",
       "id": "assurance.verify",
       "provider": "RCHAIN-COMPLIER",
-      "version": "0.3.0",
+      "version": "0.3.0-assurance",
       "kind": "verify",
       "inputs": [
         "evidence-package",
@@ -205,6 +205,45 @@
         "authority": "bounded",
         "network": "explicit",
         "mutation": "workspace",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "rchain-audit.capture-sr001",
+      "provider": "chimera-rchain-staking-audit",
+      "version": "0.1.0",
+      "kind": "audit",
+      "inputs": [
+        "authorized-target",
+        "capture-request"
+      ],
+      "outputs": [
+        "raw-evidence-bundle"
+      ],
+      "trust": {
+        "authority": "bounded",
+        "network": "explicit",
+        "mutation": "workspace",
+        "evidence": "receipt"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "rchain-audit.replay-sr001",
+      "provider": "chimera-rchain-staking-audit",
+      "version": "0.1.0",
+      "kind": "verify",
+      "inputs": [
+        "captured-evidence"
+      ],
+      "outputs": [
+        "replay-result"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
         "evidence": "reproducible"
       }
     }
