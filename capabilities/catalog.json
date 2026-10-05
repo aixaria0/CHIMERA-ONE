@@ -1,0 +1,212 @@
+{
+  "schema": "chimera-capability-catalog/v1",
+  "capabilities": [
+    {
+      "schema": "chimera-capability/v1",
+      "id": "ritualgraph.compile",
+      "provider": "RitualGraph",
+      "version": "0.1",
+      "kind": "simulate",
+      "inputs": [
+        "threat-model"
+      ],
+      "outputs": [
+        "typed-dag",
+        "invariant-set"
+      ],
+      "trust": {
+        "authority": "bounded",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "digest"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "ritualgraph.evaluate-invariants",
+      "provider": "RitualGraph",
+      "version": "0.1",
+      "kind": "verify",
+      "inputs": [
+        "typed-dag",
+        "security-state"
+      ],
+      "outputs": [
+        "invariant-verdict"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "chimera.route",
+      "provider": "Chimera-AG",
+      "version": "0.12",
+      "kind": "plan",
+      "inputs": [
+        "task",
+        "measured-observations"
+      ],
+      "outputs": [
+        "specialist-council"
+      ],
+      "trust": {
+        "authority": "advisory",
+        "network": "explicit",
+        "mutation": "none",
+        "evidence": "receipt"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "chimera.council",
+      "provider": "Chimera-AG",
+      "version": "0.12",
+      "kind": "reason",
+      "inputs": [
+        "task",
+        "specialist-council"
+      ],
+      "outputs": [
+        "synthesis",
+        "verifier-decisions"
+      ],
+      "trust": {
+        "authority": "advisory",
+        "network": "explicit",
+        "mutation": "none",
+        "evidence": "receipt"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "aether.execute-allowlisted",
+      "provider": "aether-runtime",
+      "version": "0.2",
+      "kind": "execute",
+      "inputs": [
+        "task-id",
+        "allowlisted-operation",
+        "payload"
+      ],
+      "outputs": [
+        "execution-output",
+        "output-digest"
+      ],
+      "trust": {
+        "authority": "bounded",
+        "network": "loopback",
+        "mutation": "none",
+        "evidence": "digest"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "assurance.run",
+      "provider": "RCHAIN-COMPLIER",
+      "version": "0.3.0",
+      "kind": "verify",
+      "inputs": [
+        "bounded-workload",
+        "reviewer-pins"
+      ],
+      "outputs": [
+        "evidence-package",
+        "verification-report"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "loopback",
+        "mutation": "workspace",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "assurance.verify",
+      "provider": "RCHAIN-COMPLIER",
+      "version": "0.3.0",
+      "kind": "verify",
+      "inputs": [
+        "evidence-package",
+        "reviewer-pins"
+      ],
+      "outputs": [
+        "pass-blocked-fail"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "omega.verify",
+      "provider": "CHIMERA-OMEGA",
+      "version": "0.2.0",
+      "kind": "verify",
+      "inputs": [
+        "pinned-evidence-package"
+      ],
+      "outputs": [
+        "layered-verification-report"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "omega.replay",
+      "provider": "CHIMERA-OMEGA",
+      "version": "0.2.0",
+      "kind": "attest",
+      "inputs": [
+        "pinned-evidence-package",
+        "receipt"
+      ],
+      "outputs": [
+        "reproduction-status"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "rchain-audit.first-divergence",
+      "provider": "chimera-rchain-staking-audit",
+      "version": "current",
+      "kind": "audit",
+      "inputs": [
+        "claim",
+        "invariant",
+        "transition-sequence",
+        "observations"
+      ],
+      "outputs": [
+        "first-divergence",
+        "minimal-witness",
+        "sealed-evidence"
+      ],
+      "trust": {
+        "authority": "bounded",
+        "network": "explicit",
+        "mutation": "workspace",
+        "evidence": "reproducible"
+      }
+    }
+  ]
+}

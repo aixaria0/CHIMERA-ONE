@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chimera-one"
+version = "0.1.0"
+description = "Sovereign intelligence control plane for the Chimera repository constellation"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+chimera-one = "chimera_one.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["chimera_one*"]

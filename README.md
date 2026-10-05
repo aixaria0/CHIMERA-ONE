@@ -17,10 +17,32 @@ It does not copy or absorb component implementations. It composes versioned capa
 
 Intelligence may propose. Execution must be bounded. Claims require evidence. Evidence does not silently become truth.
 
+## What works now
+
+`CHIMERA-ONE` can:
+
+- validate a canonical cross-repository capability catalog;
+- snapshot repository identity, branch, revision, cleanliness and origin binding;
+- create a content-addressed local knowledge index without republishing private source;
+- search that local index while preserving repository/path/digest provenance;
+- compile an objective into a bounded multi-repository execution DAG;
+- pin an exact constellation baseline for reproducibility.
+
+## Commands
+
+```sh
+python -m chimera_one capabilities
+python -m chimera_one status --workspace ..
+python -m chimera_one index --workspace ..
+python -m chimera_one query evidence
+python -m chimera_one plan "analyze this system change"
+python -m chimera_one plan "falsify this staking claim" --domain rchain-audit
+```
+
+The planner does not execute its plan yet. That separation is intentional: adapters must prove their trust and evidence contracts before orchestration is allowed to invoke them.
+
 ## Architecture
 
 Objective -> Planner -> Capability Registry -> RitualGraph policy/invariants -> Chimera-AG routing -> Aether execution -> observations -> RCHAIN-COMPLIER assurance -> OMEGA evidence binding -> synthesis with provenance.
 
-## Status
-
-Bootstrap architecture. The first milestone is protocol-first: canonical capability, task, observation, evidence and verdict contracts plus read-only adapters. No autonomous deployment or unrestricted command execution is part of the control plane.
+See `docs/ARCHITECTURE.md`, `docs/KNOWLEDGE_FABRIC.md`, and the pinned baseline in `docs/BASELINE-2026-10-05.json`.

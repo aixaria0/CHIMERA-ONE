@@ -1,0 +1,68 @@
+{
+  "captured_date": "2026-10-05",
+  "note": "Identity/revision pin for the first CHIMERA-ONE integration baseline. It is provenance, not a claim that any repository is correct.",
+  "repositories": [
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "505545e9e88b6afa60f81bf1c11c74631bab19de",
+      "name": "RitualGraph",
+      "origin_matches": true,
+      "role": "invariants",
+      "tracked_files": 19,
+      "url": "https://github.com/aixaria0/RitualGraph"
+    },
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "456aaa0dcee73e0da207e9b8201f99c63a04689e",
+      "name": "aether-runtime",
+      "origin_matches": true,
+      "role": "bounded-execution",
+      "tracked_files": 31,
+      "url": "https://github.com/aixaria0/aether-runtime"
+    },
+    {
+      "branch": "feat/evidence-dag-kernel-v2",
+      "dirty": false,
+      "head": "df163bdbd21873ed0c36a0379c6b88c20c55dfe9",
+      "name": "CHIMERA-OMEGA",
+      "origin_matches": true,
+      "role": "evidence-kernel",
+      "tracked_files": 22,
+      "url": "https://github.com/aixaria0/CHIMERA-OMEGA"
+    },
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "0de625196c78bf9186aad42f5db6eb09ebf557a0",
+      "name": "chimera-rchain-staking-audit",
+      "origin_matches": true,
+      "role": "adversarial-domain",
+      "tracked_files": 83,
+      "url": "https://github.com/aixaria0/chimera-rchain-staking-audit"
+    },
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "ef9b8b70fa1212bda57fed24cbbc3ddebb5aaf81",
+      "name": "RCHAIN-COMPLIER",
+      "origin_matches": true,
+      "role": "assurance",
+      "tracked_files": 315,
+      "url": "https://github.com/aixaria0/RCHAIN-COMPLIER"
+    },
+    {
+      "branch": "main",
+      "dirty": false,
+      "head": "93cfbceb914edaed54651beda5d89c24c406b31d",
+      "name": "Chimera-AG",
+      "origin_matches": true,
+      "role": "intelligence-routing",
+      "tracked_files": 84,
+      "url": "https://github.com/aixaria0/Chimera-AG"
+    }
+  ],
+  "schema": "chimera-constellation-baseline/v1",
+  "source_snapshot_digest": "4393504dbaed3424b5197a5435db309dbb564775a3f3df265a1aeedb0416f396"
+}

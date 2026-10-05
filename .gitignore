@@ -1,8 +1,8 @@
 __pycache__/
+*.py[cod]
 .venv/
-node_modules/
-target/
-artifacts/
-.env
-*.pem
-*.key
+.pytest_cache/
+.chimera/
+dist/
+build/
+*.egg-info/
