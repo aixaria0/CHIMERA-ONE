@@ -31,3 +31,17 @@ No council vote, confidence score, or model count may promote a claim above its 
 8. Bind/replay the evidence package with OMEGA.
 9. Re-evaluate invariants.
 10. Synthesize the answer while preserving epistemic status and provenance.
+
+## First executable integration
+
+The golden path above remains a plan. `review-aether-history` implements one
+explicitly selected offline OMEGA invocation, separately from general plan
+execution. It preserves original artifacts, exact native stdout/stderr, process
+outcome, source/binary/context pins and an occurrence-specific capture receipt.
+The provider result stays attributed; the general claim remains unassessed.
+`validate-capture` checks saved bytes under an external receipt pin without
+rerunning the provider. The [exact adapter contract](OFFLINE_OMEGA_REVIEW.md)
+defines its authority and resource boundaries.
+
+The updated registry recognizes all current OMEGA manifest capabilities.
+Registration is descriptive and grants no automatic execution permission.

@@ -160,6 +160,38 @@
             "replay"
           ],
           "mode": "verification"
+        },
+        {
+          "capability": "omega.verify-aether-lineage",
+          "command": [
+            "omega",
+            "verify-aether-lineage"
+          ],
+          "mode": "verification"
+        },
+        {
+          "capability": "omega.verify-aether-journal",
+          "command": [
+            "omega",
+            "verify-aether-journal"
+          ],
+          "mode": "verification"
+        },
+        {
+          "capability": "omega.verify-audit-archive",
+          "command": [
+            "omega",
+            "verify-audit-archive"
+          ],
+          "mode": "verification"
+        },
+        {
+          "capability": "omega.verify-aether-historical-journal",
+          "command": [
+            "omega",
+            "verify-aether-historical-journal"
+          ],
+          "mode": "verification"
         }
       ]
     },

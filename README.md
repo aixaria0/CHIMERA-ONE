@@ -29,6 +29,7 @@ Intelligence may propose. Execution must be bounded. Claims require evidence. Ev
 - pin an exact constellation baseline for reproducibility;
 - validate protocol runs through both Python and a deterministic Rust kernel;
 - build a hardened multi-arch container carrying both control-plane and protocol-verifier surfaces.
+- invoke one pinned offline OMEGA historical verifier and preserve its exact input snapshots, native report and bounded process result in an externally verifiable capture.
 
 ## Commands
 
@@ -46,6 +47,19 @@ chimera-protocol validate-run tests/vectors/run.valid.json
 ```
 
 The planner does not execute its plan yet. That separation is intentional: adapters must prove their trust and evidence contracts before orchestration is allowed to invoke them. The Rust protocol kernel validates and digests plans; it is not an unrestricted executor.
+
+`review-aether-history` is the first narrow invocation adapter. It selects the
+personally owned OMEGA source and explicit binary/context pins, constructs one
+fixed offline command, and records success, rejection or blocked execution without
+promoting general claims. `validate-capture` later checks saved bytes under an
+external receipt pin without rerunning the provider. See the exact commands,
+capture grammar and trust/resource limits in
+[Offline OMEGA review](docs/OFFLINE_OMEGA_REVIEW.md).
+
+The central catalog includes all six current OMEGA capabilities. Registration
+does not authorize automatic execution of other catalog commands. Engineering
+stays within personally owned repositories; public testnets and third-party
+operational targets are off-limits under [AGENTS.md](AGENTS.md).
 
 ## Build surfaces
 

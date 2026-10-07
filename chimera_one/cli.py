@@ -3,12 +3,14 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import subprocess
 from pathlib import Path
 
 from .catalog import load_catalog
 from .doctor import doctor, load_adapters
 from .federation import federation_report
 from .knowledge import build_index, query
+from .offline_review import ReviewError, review_aether_history, validate_capture
 from .plan import build_plan
 from .protocol import load_json as load_protocol_json, protocol_digest, validate_run
 from .workspace import build_snapshot, load_constellation
@@ -109,6 +111,30 @@ def cmd_protocol_validate(args: argparse.Namespace) -> int:
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0 if report["valid"] else 3
 
+
+def cmd_review_history(args: argparse.Namespace) -> int:
+    try:
+        receipt = review_aether_history(
+            checkout=Path(args.omega_checkout), binary=Path(args.omega_bin),
+            expected_binary=args.expect_omega_binary, export=Path(args.export),
+            registry=Path(args.registry), context=Path(args.context),
+            expected_context=args.expect_context, output=Path(args.output))
+    except (ReviewError, OSError, subprocess.SubprocessError) as exc:
+        print(json.dumps({"status": "REJECTED", "error": str(exc)}))
+        return 2
+    print(json.dumps(receipt, indent=2, sort_keys=True))
+    return {"CONFIRMED": 0, "REJECTED": 2, "BLOCKED": 3}[receipt["invocation"]["outcome"]]
+
+
+def cmd_validate_capture(args: argparse.Namespace) -> int:
+    try:
+        report = validate_capture(Path(args.path), args.expect_receipt)
+    except (ReviewError, OSError) as exc:
+        print(json.dumps({"status": "REJECTED", "error": str(exc)}))
+        return 2
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="chimera-one", description="CHIMERA-ONE constellation control plane")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -153,6 +179,22 @@ def build_parser() -> argparse.ArgumentParser:
     validate = sub.add_parser("protocol-validate", help="fail-closed validation of a chimera-run/v1 record")
     validate.add_argument("path")
     validate.set_defaults(func=cmd_protocol_validate)
+
+    review = sub.add_parser("review-aether-history", help="run one pinned offline OMEGA verifier and retain its exact report")
+    review.add_argument("--omega-checkout", required=True)
+    review.add_argument("--omega-bin", required=True)
+    review.add_argument("--expect-omega-binary", required=True)
+    review.add_argument("--export", required=True)
+    review.add_argument("--registry", required=True)
+    review.add_argument("--context", required=True)
+    review.add_argument("--expect-context", required=True)
+    review.add_argument("--output", required=True)
+    review.set_defaults(func=cmd_review_history)
+
+    capture = sub.add_parser("validate-capture", help="check saved capture bytes under an independently selected receipt pin; no provider rerun")
+    capture.add_argument("path")
+    capture.add_argument("--expect-receipt", required=True)
+    capture.set_defaults(func=cmd_validate_capture)
     return parser
 
 
