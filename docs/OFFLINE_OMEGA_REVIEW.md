@@ -168,9 +168,15 @@ remain `REJECTED` captures.
 Unit tests use explicitly test-only provider doubles for timeout, overflow,
 snapshot mutation, wrong pins, scope/authority drift and capture substitution.
 These are boundary controls, not claims that real OMEGA exhibited those behaviors.
-CI clones only the pinned personal OMEGA source, builds it, uses saved artifacts
-and preserves `one-offline-omega-evidence`. Other capabilities remain metadata
-until their own executable adapter boundary is implemented.
+OMEGA is a private personal repository. The default ONE Actions token cannot
+check it out. CI therefore runs `tools/recorded-capture-conformance.py` against
+the retained real capture, checks five substitution controls, and preserves
+`one-offline-omega-evidence`. That lane declares `RETAINED_CAPTURE_BYTES_ONLY`,
+fresh provider invocation `NOT_RUN` and private source checkout `NOT_PERFORMED`.
+No additional credentials or repository visibility changes are introduced.
+The real-provider harness above remains runnable on an authorized local checkout;
+its successful two-case/seven-control arm64 acquisition is retained separately.
+Other capabilities remain metadata until their own adapter is implemented.
 
 An exact retained replay capture is checked in under `examples/offline-review`,
 with acquisition/source/binary/artifact hashes and the explicit dirty-worktree
