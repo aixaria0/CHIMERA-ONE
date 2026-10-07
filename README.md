@@ -30,6 +30,7 @@ Intelligence may propose. Execution must be bounded. Claims require evidence. Ev
 - validate protocol runs through both Python and a deterministic Rust kernel;
 - build a hardened multi-arch container carrying both control-plane and protocol-verifier surfaces.
 - invoke one pinned offline OMEGA historical verifier and preserve its exact input snapshots, native report and bounded process result in an externally verifiable capture.
+- sign a saved capture with a separately selected Ed25519 key and verify its signature and saved bytes under explicit receipt, key and signer-label pins.
 
 ## Commands
 
@@ -55,6 +56,12 @@ promoting general claims. `validate-capture` later checks saved bytes under an
 external receipt pin without rerunning the provider. See the exact commands,
 capture grammar and trust/resource limits in
 [Offline OMEGA review](docs/OFFLINE_OMEGA_REVIEW.md).
+
+`attest-capture` adds an Ed25519 sidecar without changing that capture.
+`verify-capture-attestation` checks its signature and all saved bytes with explicit
+receipt/key/label selections. It requires OpenSSL 3 and preserves unknown witness
+independence and source-build binding. Reproducible commands and a public test-key
+fixture are in [Capture attribution](docs/CAPTURE_ATTESTATION_V1.md).
 
 The central catalog includes all six current OMEGA capabilities. Registration
 does not authorize automatic execution of other catalog commands. Engineering

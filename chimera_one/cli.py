@@ -7,6 +7,7 @@ import subprocess
 from pathlib import Path
 
 from .catalog import load_catalog
+from .capture_attestation import attest_capture, verify_capture_attestation
 from .doctor import doctor, load_adapters
 from .federation import federation_report
 from .knowledge import build_index, query
@@ -135,6 +136,32 @@ def cmd_validate_capture(args: argparse.Namespace) -> int:
     print(json.dumps(report, indent=2, sort_keys=True))
     return 0
 
+
+def cmd_attest_capture(args: argparse.Namespace) -> int:
+    try:
+        report = attest_capture(root=Path(args.path), expected_receipt=args.expect_receipt,
+                                private_key=Path(args.key), signer_id=args.signer_id,
+                                expected_key=args.expect_key, output=Path(args.output))
+    except (ReviewError, OSError) as exc:
+        print(json.dumps({"status": "REJECTED", "error": str(exc)}))
+        return 2
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0
+
+
+def cmd_verify_attestation(args: argparse.Namespace) -> int:
+    try:
+        report = verify_capture_attestation(root=Path(args.path), attestation=Path(args.attestation),
+                                            expected_receipt=args.expect_receipt,
+                                            expected_key=args.expect_key,
+                                            expected_signer=args.expect_signer)
+    except (ReviewError, OSError) as exc:
+        print(json.dumps({"status": "REJECTED", "error": str(exc)}))
+        return 2
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="chimera-one", description="CHIMERA-ONE constellation control plane")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -195,6 +222,23 @@ def build_parser() -> argparse.ArgumentParser:
     capture.add_argument("path")
     capture.add_argument("--expect-receipt", required=True)
     capture.set_defaults(func=cmd_validate_capture)
+
+    attest = sub.add_parser("attest-capture", help="sign a pinned saved capture with an explicit local Ed25519 key")
+    attest.add_argument("path")
+    attest.add_argument("--expect-receipt", required=True)
+    attest.add_argument("--key", required=True)
+    attest.add_argument("--signer-id", required=True)
+    attest.add_argument("--expect-key", required=True)
+    attest.add_argument("--output", required=True)
+    attest.set_defaults(func=cmd_attest_capture)
+
+    attested = sub.add_parser("verify-capture-attestation", help="verify saved bytes and signature under externally selected receipt, key and signer pins")
+    attested.add_argument("path")
+    attested.add_argument("--attestation", required=True)
+    attested.add_argument("--expect-receipt", required=True)
+    attested.add_argument("--expect-key", required=True)
+    attested.add_argument("--expect-signer", required=True)
+    attested.set_defaults(func=cmd_verify_attestation)
     return parser
 
 

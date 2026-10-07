@@ -18,7 +18,7 @@ ARG SOURCE_REVISION=unknown
 LABEL org.opencontainers.image.source="https://github.com/aixaria0/CHIMERA-ONE" \
       org.opencontainers.image.revision="${SOURCE_REVISION}"
 RUN apt-get update \
- && apt-get install -y --no-install-recommends ca-certificates git \
+ && apt-get install -y --no-install-recommends ca-certificates git openssl \
  && rm -rf /var/lib/apt/lists/* \
  && useradd --create-home --uid 10001 chimera
 COPY --from=python-builder /opt/venv /opt/venv

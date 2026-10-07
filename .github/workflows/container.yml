@@ -37,6 +37,16 @@ jobs:
         run: docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges chimera-one:test capabilities
       - name: Smoke Rust protocol verifier
         run: docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges --entrypoint chimera-protocol chimera-one:test validate-run /opt/chimera-one/tests/vectors/run.valid.json
+      - name: Verify test-key signed capture using the runtime OpenSSL backend
+        run: |
+          docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges \
+            --tmpfs /tmp:rw,noexec,nosuid,size=16m \
+            --volume "${PWD}/examples:/fixtures:ro" \
+            chimera-one:test verify-capture-attestation /fixtures/offline-review/replay \
+            --expect-receipt sha256:ad8ca4df8e73093232f1cd7302ed255287d9383a56e8ad55e52a768e7491d5a2 \
+            --expect-key sha256:21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9 \
+            --expect-signer test-vector-reviewer \
+            --attestation /fixtures/capture-attestation/test-only.replay.attestation.json
 
   publish:
     if: github.event_name != 'pull_request'

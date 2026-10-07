@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ONE offline Ed25519 capture attestation v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "algorithm", "statement", "signature", "attestation_digest"],
+  "properties": {
+    "schema": {"const": "chimera-capture-attestation/v1"},
+    "algorithm": {"const": "Ed25519"},
+    "statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema", "scope", "role", "signer_id", "public_key", "key_id", "receipt_digest", "invocation_id"],
+      "properties": {
+        "schema": {"const": "chimera-capture-statement/v1"},
+        "scope": {"const": "RECORDED_BYTES_MATCH_EXTERNALLY_PINNED_RECEIPT_ONLY"},
+        "role": {"const": "CAPTURE_REVIEWER"},
+        "signer_id": {"type": "string", "pattern": "^[a-z][a-z0-9._-]{0,63}$"},
+        "public_key": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "key_id": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "receipt_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+        "invocation_id": {"type": "string", "format": "uuid"}
+      }
+    },
+    "signature": {"type": "string", "pattern": "^[0-9a-f]{128}$"},
+    "attestation_digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "attestation_digest": "sha256:47938543d3510e6d4c4068d7f0a476aa40483bba989d41c91c366f3590942776",
+  "capture_validation": {
+    "general_claim_verdict": "NOT_ASSESSED",
+    "independent_observation": "UNKNOWN",
+    "provider_execution_reproduced": "NOT_RUN",
+    "provider_outcome": "CONFIRMED",
+    "receipt_digest": "sha256:ad8ca4df8e73093232f1cd7302ed255287d9383a56e8ad55e52a768e7491d5a2",
+    "schema": "chimera-capture-validation/v1",
+    "scope": "RECORDED_BYTES_MATCH_EXTERNALLY_PINNED_RECEIPT_ONLY",
+    "status": "CONFIRMED"
+  },
+  "freshness": "UNKNOWN",
+  "general_claim_verdict": "NOT_ASSESSED",
+  "independent_observation": "UNKNOWN",
+  "key_id": "sha256:21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9",
+  "key_revocation": "UNKNOWN",
+  "key_selection_binding": "CONFIRMED",
+  "policy_authorization": "NOT_ASSESSED",
+  "process_independence": "UNKNOWN",
+  "provider_execution_reproduced": "NOT_RUN",
+  "receipt_digest": "sha256:ad8ca4df8e73093232f1cd7302ed255287d9383a56e8ad55e52a768e7491d5a2",
+  "schema": "chimera-capture-attestation-binding/v1",
+  "scope": "PINNED_KEY_SIGNATURE_AND_SAVED_CAPTURE_BYTES_ONLY",
+  "signature_integrity": "CONFIRMED",
+  "signer_id": "test-vector-reviewer",
+  "signer_identity": "UNKNOWN",
+  "signer_label_binding": "CONFIRMED",
+  "source_build_binding": "UNKNOWN",
+  "status": "CONFIRMED"
+}

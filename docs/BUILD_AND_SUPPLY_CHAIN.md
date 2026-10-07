@@ -4,6 +4,8 @@ CHIMERA-ONE uses two implementation layers deliberately:
 
 - Python is the control-plane interface, repository intelligence layer and planner.
 - Rust is the deterministic protocol validation and digest kernel.
+- OpenSSL 3 is the trusted local Ed25519 backend for optional capture attestations;
+  these commands add no Python package or Rust crate dependencies.
 
 The Rust kernel does not perform arbitrary execution, network access or autonomous mutation. It validates bounded protocol records, enforces fail-closed run-policy invariants, checks DAG references/cycles, and computes domain-separated canonical digests.
 
