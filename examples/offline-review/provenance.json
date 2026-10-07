@@ -1,0 +1,56 @@
+{
+  "artifact_sha256": {
+    "replay/inputs/context.json": "ae0723ff35891b86b85c35a831f15a348554e02f8dbc18455b3c91b0ab222671",
+    "replay/inputs/export.json": "2695f3aa7b967f50bf79f24711fdebf3a1cad1ca50b3faf95ee3f36dcd02d1e0",
+    "replay/inputs/registry.json": "985677df02eac4e983cd8ed9dcadc0ff26fc681a4747957fe05b0366e64d0a69",
+    "replay/provider.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "replay/provider.stdout": "3cf4af4dffc9c090c563c524e7dd0ac692737497de8d2734f61d7e00772d680f",
+    "replay/receipt.json": "e955122a360697103a5be89d4765a0cecda14be79d8bb4719e15f62b762fa1b8"
+  },
+  "binary_pin_acquisition": "Local/CI build hash; production requires independently reviewed binary selection.",
+  "omega_binary_sha256": "894f8fe83b6c44e6a2b2c345225c01dd92de8c493ba2f47851fef053daf0f6f0",
+  "omega_source_repository": "aixaria0/CHIMERA-OMEGA",
+  "omega_source_revision": "52a21a8eaa4363d648fdac805900175d81e13f07",
+  "one_checkout_revision": "1748117dc30002b2404aa430fa296d2e753c4244",
+  "one_source_sha256": {
+    "adapters/catalog.json": "1016f78e6a5e030074e111bee1a7a927e0cebe0911fa48c89229081e7083cb2a",
+    "capabilities/catalog.json": "77f3c7d424934180a81ecf9cb807976b8e4bee358c72d5ce0e7cfa9366da9caa",
+    "chimera_one/cli.py": "2ebd20ce361ccd5cb2d8f4d8da7b08fb5ca128d1ef63eb6e2320b1a1074246df",
+    "chimera_one/offline_review.py": "dc74b74d9a30c845138bb3ffb0aac886dee5648173408fc157cfa7f927d23e0c",
+    "tools/offline-omega-conformance.py": "98fe82f1f6d50d415485e19b1a5897cee91713907836319a1a412e4a75c5ee37"
+  },
+  "one_working_tree_dirty": true,
+  "positive_cases": [
+    "replay",
+    "retired-view"
+  ],
+  "public_testnet_interaction": "NONE",
+  "rejection_controls": [
+    "binary substitution rejected before invocation",
+    "external context substitution rejected before invocation",
+    "registry-replaced retained as native REJECTED",
+    "revoked-signer retained as native REJECTED",
+    "captured stream modification rejected",
+    "whole capture rehash rejected under original receipt pin",
+    "authority promotion rejected even under fresh receipt pin"
+  ],
+  "retained_cases": [
+    "replay"
+  ],
+  "schema": "chimera-one-offline-conformance/v1",
+  "source_build_attestation": "UNKNOWN",
+  "source_fixture_sha256": {
+    "examples/aether-historical/replay.context.json": "ae0723ff35891b86b85c35a831f15a348554e02f8dbc18455b3c91b0ab222671",
+    "examples/aether-historical/replay.context.sha256": "4e00cd4307c359599b979aff9d8ae4bb24b6c901faf43fc12bb392c30e7bfeb3",
+    "examples/aether-historical/replay.export.json": "2695f3aa7b967f50bf79f24711fdebf3a1cad1ca50b3faf95ee3f36dcd02d1e0",
+    "examples/aether-historical/replay.registry.json": "985677df02eac4e983cd8ed9dcadc0ff26fc681a4747957fe05b0366e64d0a69",
+    "examples/aether-historical/replay.report.json": "3cf4af4dffc9c090c563c524e7dd0ac692737497de8d2734f61d7e00772d680f",
+    "examples/aether-historical/retired-view.context.json": "3013ad6f72e73b3e03862ccdd89110e048b6645379f4b006283ad42a946bf921",
+    "examples/aether-historical/retired-view.context.sha256": "01f777ae5e39a8d6d4adbf627b1fdffa627eb2c87587b48f21d2883bab4e01b0",
+    "examples/aether-historical/retired-view.export.json": "55dcf2bfe6c9cb7580bd32812df20431390d6bc0f66c05f82e6609216001bcc3",
+    "examples/aether-historical/retired-view.registry.json": "fc687aad4bb6606bbd03b7b264a12fe00d337fecf1304c54fa2d90bc09eac1c9",
+    "examples/aether-historical/retired-view.report.json": "2231538be724d09e1d6fd39a25861ce8fddab12196cab0955622119b3d0c60b7"
+  },
+  "synthetic_fixture": "retired-view models an unsigned current-key assessment; no live rotation is claimed.",
+  "target_runtime_reproduction": "NOT_RUN"
+}

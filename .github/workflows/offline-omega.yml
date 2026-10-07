@@ -1,0 +1,28 @@
+name: Offline OMEGA retained capture integrity
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-omega:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Verify retained real capture bytes and reject substitution
+        run: |
+          python3 tools/recorded-capture-conformance.py \
+            --out "${{ runner.temp }}/one-offline-evidence"
+      - name: Preserve invocation receipts, exact reports and provenance
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: one-offline-omega-evidence
+          path: ${{ runner.temp }}/one-offline-evidence
+          if-no-files-found: error

@@ -1,0 +1,387 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ONE offline provider invocation capture v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "invocation_id",
+    "capability",
+    "control_plane",
+    "provider",
+    "binary_sha256",
+    "expected_context_sha256",
+    "limits",
+    "inputs",
+    "invocation",
+    "provider_report",
+    "authority",
+    "receipt_digest"
+  ],
+  "properties": {
+    "schema": {
+      "const": "chimera-offline-review/v1"
+    },
+    "status": {
+      "const": "RECORDED_PROVIDER_INVOCATION"
+    },
+    "invocation_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "capability": {
+      "const": "omega.verify-aether-historical-journal"
+    },
+    "control_plane": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "source_snapshot",
+        "source_sha256"
+      ],
+      "properties": {
+        "repository": {
+          "const": "aixaria0/CHIMERA-ONE"
+        },
+        "source_snapshot": {
+          "const": "DISK_SOURCE_BYTES_ONLY"
+        },
+        "source_sha256": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "offline_review.py",
+            "cli.py",
+            "protocol.py"
+          ],
+          "properties": {
+            "offline_review.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "cli.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "protocol.py": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          }
+        }
+      }
+    },
+    "provider": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "revision",
+        "tree",
+        "manifest_sha256"
+      ],
+      "properties": {
+        "repository": {
+          "const": "aixaria0/CHIMERA-OMEGA"
+        },
+        "revision": {
+          "const": "52a21a8eaa4363d648fdac805900175d81e13f07"
+        },
+        "tree": {
+          "const": "ddb6a6b8ee60ee0ac5b865a69a8a60bf0cf06c0e"
+        },
+        "manifest_sha256": {
+          "const": "d5d1ec1e80249ba607dcffdd13d8e6baf4413b8277cbce64a71efe59decbfde3"
+        }
+      }
+    },
+    "binary_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "expected_context_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_input_bytes",
+        "max_binary_bytes",
+        "max_stream_bytes",
+        "timeout_ms"
+      ],
+      "properties": {
+        "max_input_bytes": {
+          "const": 1048576
+        },
+        "max_binary_bytes": {
+          "const": 67108864
+        },
+        "max_stream_bytes": {
+          "const": 131072
+        },
+        "timeout_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10000
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "export",
+        "registry",
+        "context"
+      ],
+      "properties": {
+        "export": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "size_bytes"
+          ],
+          "properties": {
+            "path": {
+              "const": "inputs/export.json"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            }
+          }
+        },
+        "registry": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "size_bytes"
+          ],
+          "properties": {
+            "path": {
+              "const": "inputs/registry.json"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            }
+          }
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "size_bytes"
+          ],
+          "properties": {
+            "path": {
+              "const": "inputs/context.json"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1048576
+            }
+          }
+        }
+      }
+    },
+    "invocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "command",
+        "exit_code",
+        "outcome",
+        "reason",
+        "input_snapshots_unchanged",
+        "stdout",
+        "stderr"
+      ],
+      "properties": {
+        "command": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "<reviewed-omega-binary>"
+            },
+            {
+              "const": "verify-aether-historical-journal"
+            },
+            {
+              "const": "inputs/export.json"
+            },
+            {
+              "const": "--registry"
+            },
+            {
+              "const": "inputs/registry.json"
+            },
+            {
+              "const": "--context"
+            },
+            {
+              "const": "inputs/context.json"
+            },
+            {
+              "const": "--expect-context"
+            },
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            }
+          ],
+          "items": false,
+          "minItems": 9,
+          "maxItems": 9
+        },
+        "exit_code": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 255
+        },
+        "outcome": {
+          "enum": [
+            "CONFIRMED",
+            "REJECTED",
+            "BLOCKED"
+          ]
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 4096
+        },
+        "input_snapshots_unchanged": {
+          "type": "boolean"
+        },
+        "stdout": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "size_bytes"
+          ],
+          "properties": {
+            "path": {
+              "const": "provider.stdout"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 131072
+            }
+          }
+        },
+        "stderr": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "size_bytes"
+          ],
+          "properties": {
+            "path": {
+              "const": "provider.stderr"
+            },
+            "sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 131072
+            }
+          }
+        }
+      }
+    },
+    "provider_report": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider_report",
+        "capture_integrity",
+        "source_build_binding",
+        "process_independence",
+        "target_runtime_reproduction",
+        "general_claim_verdict",
+        "network_policy",
+        "os_network_sandbox"
+      ],
+      "properties": {
+        "provider_report": {
+          "const": "ATTRIBUTED_PROVIDER_REPORT"
+        },
+        "capture_integrity": {
+          "const": "CONTENT_ADDRESSED_ONLY"
+        },
+        "source_build_binding": {
+          "const": "UNKNOWN"
+        },
+        "process_independence": {
+          "const": "UNKNOWN"
+        },
+        "target_runtime_reproduction": {
+          "const": "NOT_RUN"
+        },
+        "general_claim_verdict": {
+          "const": "NOT_ASSESSED"
+        },
+        "network_policy": {
+          "const": "SUPPORTED_OFFLINE_VERIFIER_ONLY"
+        },
+        "os_network_sandbox": {
+          "const": "NOT_ESTABLISHED"
+        }
+      }
+    },
+    "receipt_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

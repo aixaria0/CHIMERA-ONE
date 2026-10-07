@@ -246,6 +246,87 @@
         "mutation": "none",
         "evidence": "reproducible"
       }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "omega.verify-aether-lineage",
+      "provider": "CHIMERA-OMEGA",
+      "version": "0.2.0",
+      "kind": "verify",
+      "inputs": [
+        "signed-operation-lineage",
+        "reviewer-context-pin"
+      ],
+      "outputs": [
+        "scoped-signed-lineage-report"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "omega.verify-aether-journal",
+      "provider": "CHIMERA-OMEGA",
+      "version": "0.2.0",
+      "kind": "verify",
+      "inputs": [
+        "complete-journal-export",
+        "reviewer-context-pin"
+      ],
+      "outputs": [
+        "scoped-complete-journal-report"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "omega.verify-audit-archive",
+      "provider": "CHIMERA-OMEGA",
+      "version": "0.2.0",
+      "kind": "verify",
+      "inputs": [
+        "captured-audit-archive",
+        "reviewer-context-pin"
+      ],
+      "outputs": [
+        "scoped-archive-byte-binding-report"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "omega.verify-aether-historical-journal",
+      "provider": "CHIMERA-OMEGA",
+      "version": "0.2.0",
+      "kind": "verify",
+      "inputs": [
+        "complete-journal-export",
+        "reviewed-key-policy-registry",
+        "reviewer-context-pin"
+      ],
+      "outputs": [
+        "exact-receipt-historical-journal-report"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
     }
   ]
 }
