@@ -48,6 +48,7 @@ python -m chimera_one plan "falsify this staking claim" --domain rchain-audit
 python -m chimera_one protocol-validate tests/vectors/run.valid.json
 python -m chimera_one derive-program-policy \
   --evidence examples/program-routing/v3/evidence.json \
+  --native-dir examples/program-routing/v3/native \
   --expect-evidence sha256:a010084f89462aadd7b8e4c9e498fe54264ee69cbd77dfa70b1a78ddbcc393b9
 chimera-protocol validate-run tests/vectors/run.valid.json
 ```
@@ -83,7 +84,8 @@ negative comparison, zero-call dry run, exact commands and execution limits are
 in [Council measurement](docs/COUNCIL_MEASUREMENT_V1.md). This adapter runs
 separately from the general planner and does not promote model agreement.
 
-`derive-program-policy` consumes the reviewed V3 program evidence and selects
+`derive-program-policy` verifies the retained V3 native suite/report bytes,
+consumes their reviewed compact evidence and selects
 four checked single-model samples for the three exact typed task families. Across
 the regression and transfer suites this route delivered 24/24 answers versus
 23/24 for Council, with zero false accepts and lower observed elapsed time on

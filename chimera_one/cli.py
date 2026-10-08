@@ -215,13 +215,15 @@ def cmd_program_policy(args: argparse.Namespace) -> int:
     try:
         evidence = load_program_json(Path(args.evidence))
         if args.command == "derive-program-policy":
-            report = select_program_policy(evidence, expected_evidence=args.expect_evidence)
+            report = select_program_policy(evidence, expected_evidence=args.expect_evidence,
+                                           native_dir=Path(args.native_dir))
             if args.output:
                 _write_json(Path(args.output), report)
         else:
             report = validate_program_policy(load_program_json(Path(args.path)), evidence,
                                              expected_evidence=args.expect_evidence,
-                                             expected_policy=args.expect_policy)
+                                             expected_policy=args.expect_policy,
+                                             native_dir=Path(args.native_dir))
     except (ProgramPolicyError, OSError, json.JSONDecodeError, TypeError, KeyError) as exc:
         print(json.dumps({"status": "REJECTED", "error": str(exc)}))
         return 2
@@ -348,6 +350,8 @@ def build_parser() -> argparse.ArgumentParser:
         policy = sub.add_parser(command, help="derive or validate one task-family-limited route from pinned saved program evidence")
         policy.add_argument("--evidence", required=True)
         policy.add_argument("--expect-evidence", required=True)
+        policy.add_argument("--native-dir", required=True,
+                            help="directory containing the exact retained native suites and reports")
         if command == "derive-program-policy":
             policy.add_argument("--output")
         else:

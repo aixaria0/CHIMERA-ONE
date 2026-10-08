@@ -66,4 +66,6 @@ four-sample checked-program arm only when it is noninferior in verified delivery
 has zero false accepts and is faster on each selected suite. Any other metrics
 produce `NO_SELECTION`. The decision remains separate from the general planner;
 its [contract](PROGRAM_ROUTING_POLICY_V1.md) preserves source, artifact, suite,
-report, evidence and policy pins and keeps AGI/generalization unassessed.
+report, evidence and policy pins and keeps AGI/generalization unassessed. The
+selected native reports and suites are retained in-tree; derivation checks their
+exact byte pins and provider-domain semantic digests before accepting summaries.
