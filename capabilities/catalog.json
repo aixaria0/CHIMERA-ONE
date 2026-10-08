@@ -327,6 +327,28 @@
         "mutation": "none",
         "evidence": "reproducible"
       }
+    },
+    {
+      "schema": "chimera-capability/v1",
+      "id": "chimera.checked-program-evidence",
+      "provider": "Chimera-AG",
+      "version": "0.13.0",
+      "kind": "verify",
+      "inputs": [
+        "saved-native-program-report",
+        "selected-task-suite",
+        "source-model-report-pins"
+      ],
+      "outputs": [
+        "checked-program-metrics",
+        "fixed-algorithm-answer-origin"
+      ],
+      "trust": {
+        "authority": "verification",
+        "network": "none",
+        "mutation": "none",
+        "evidence": "reproducible"
+      }
     }
   ]
 }

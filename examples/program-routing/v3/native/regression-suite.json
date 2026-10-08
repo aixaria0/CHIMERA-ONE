@@ -1,0 +1,11 @@
+{
+  "schema": "chimera-reference-suite/v1",
+  "tasks": [
+    {"id": "program-arithmetic-a", "kind": "integer-expression", "inputs": {"a": 17, "b": 6, "c": 4}},
+    {"id": "program-arithmetic-b", "kind": "integer-expression", "inputs": {"a": 8, "b": 7, "c": 13}},
+    {"id": "program-state-a", "kind": "state-transition", "inputs": {"initial": 6, "operations": [["multiply", 4], ["set", 3], ["add", 8]]}},
+    {"id": "program-state-b", "kind": "state-transition", "inputs": {"initial": 11, "operations": [["add", 2], ["multiply", 3], ["add", 4]]}},
+    {"id": "program-graph-a", "kind": "directed-reachability", "inputs": {"edges": [[0, 2], [2, 5], [5, 7], [9, 0]], "start": 0, "target": 7}},
+    {"id": "program-graph-b", "kind": "directed-reachability", "inputs": {"edges": [[1, 3], [3, 4], [6, 3], [4, 2]], "start": 2, "target": 6}}
+  ]
+}

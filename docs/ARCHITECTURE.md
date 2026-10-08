@@ -56,3 +56,16 @@ without model inference. Candidates, model approvals, delivered answers and
 reference matches remain distinct; a model vote does not establish truth.
 The [adapter contract](COUNCIL_MEASUREMENT_V1.md) pins source and selected evidence,
 preserves failure/UNKNOWN dimensions and leaves general plan execution unchanged.
+
+## Narrow measured routing decision
+
+`derive-program-policy` consumes two externally pinned Chimera-AG V3 program
+summaries after their raw artifacts were independently replayed. For integer
+expressions, bounded state transitions and directed reachability, it selects the
+four-sample checked-program arm only when it is noninferior in verified delivery,
+has zero false accepts and is faster on each selected suite. Any other metrics
+produce `NO_SELECTION`. The decision remains separate from the general planner;
+its [contract](PROGRAM_ROUTING_POLICY_V1.md) preserves source, artifact, suite,
+report, evidence and policy pins and keeps AGI/generalization unassessed. The
+selected native reports and suites are retained in-tree; derivation checks their
+exact byte pins and provider-domain semantic digests before accepting summaries.

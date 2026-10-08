@@ -15,6 +15,8 @@ from .federation import federation_report
 from .knowledge import build_index, query
 from .offline_review import ReviewError, review_aether_history, validate_capture
 from .plan import build_plan
+from .program_policy import (ProgramPolicyError, load_json as load_program_json,
+                             select_program_policy, validate_program_policy)
 from .protocol import load_json as load_protocol_json, protocol_digest, validate_run
 from .workspace import build_snapshot, load_constellation
 
@@ -209,6 +211,26 @@ def cmd_council_capture(args: argparse.Namespace) -> int:
     return exit_code
 
 
+def cmd_program_policy(args: argparse.Namespace) -> int:
+    try:
+        evidence = load_program_json(Path(args.evidence))
+        if args.command == "derive-program-policy":
+            report = select_program_policy(evidence, expected_evidence=args.expect_evidence,
+                                           native_dir=Path(args.native_dir))
+            if args.output:
+                _write_json(Path(args.output), report)
+        else:
+            report = validate_program_policy(load_program_json(Path(args.path)), evidence,
+                                             expected_evidence=args.expect_evidence,
+                                             expected_policy=args.expect_policy,
+                                             native_dir=Path(args.native_dir))
+    except (ProgramPolicyError, OSError, json.JSONDecodeError, TypeError, KeyError) as exc:
+        print(json.dumps({"status": "REJECTED", "error": str(exc)}))
+        return 2
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="chimera-one", description="CHIMERA-ONE constellation control plane")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -324,6 +346,18 @@ def build_parser() -> argparse.ArgumentParser:
             council.add_argument("--expect-receipt", required=True)
             council.add_argument("--expect-report", required=True, help="selected report digest, or explicit NOT_RUN for a blocked capture")
         council.set_defaults(func=cmd_council_capture)
+    for command in ("derive-program-policy", "validate-program-policy"):
+        policy = sub.add_parser(command, help="derive or validate one task-family-limited route from pinned saved program evidence")
+        policy.add_argument("--evidence", required=True)
+        policy.add_argument("--expect-evidence", required=True)
+        policy.add_argument("--native-dir", required=True,
+                            help="directory containing the exact retained native suites and reports")
+        if command == "derive-program-policy":
+            policy.add_argument("--output")
+        else:
+            policy.add_argument("path")
+            policy.add_argument("--expect-policy", required=True)
+        policy.set_defaults(func=cmd_program_policy)
     return parser
 
 
