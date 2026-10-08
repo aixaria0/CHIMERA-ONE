@@ -1,0 +1,162 @@
+{
+  "authority": {
+    "capture_integrity": "CONTENT_ADDRESSED_ONLY",
+    "general_claim_verdict": "NOT_ASSESSED",
+    "network_policy": "SUPPORTED_OFFLINE_VERIFIER_ONLY",
+    "os_network_sandbox": "NOT_ESTABLISHED",
+    "process_independence": "UNKNOWN",
+    "provider_report": "ATTRIBUTED_PROVIDER_REPORT",
+    "source_build_binding": "UNKNOWN",
+    "target_runtime_reproduction": "NOT_RUN"
+  },
+  "binary_sha256": "3989b0b32395b21f1d33468e3af65225e36c22ea28fa7e931807bb8b02a54d10",
+  "capability": "omega.verify-aether-historical-journal",
+  "control_plane": {
+    "repository": "aixaria0/CHIMERA-ONE",
+    "source_sha256": {
+      "cli.py": "97d9d0d9f5375838648c25fed77785d8fa90be9ddce35c45f2ab52a8eb8676f3",
+      "offline_review.py": "dc74b74d9a30c845138bb3ffb0aac886dee5648173408fc157cfa7f927d23e0c",
+      "protocol.py": "9a35a2608f7fd4d04a0906d2dbce96fb4d426431104c93ec92a3ca380ebd99e1"
+    },
+    "source_snapshot": "DISK_SOURCE_BYTES_ONLY"
+  },
+  "expected_context_sha256": "f7ccfdb318101446e01ea15407b844491cb8e08bcd5aeed7ead747b6e7cf3ca6",
+  "inputs": {
+    "context": {
+      "path": "inputs/context.json",
+      "sha256": "ae0723ff35891b86b85c35a831f15a348554e02f8dbc18455b3c91b0ab222671",
+      "size_bytes": 568
+    },
+    "export": {
+      "path": "inputs/export.json",
+      "sha256": "2695f3aa7b967f50bf79f24711fdebf3a1cad1ca50b3faf95ee3f36dcd02d1e0",
+      "size_bytes": 28890
+    },
+    "registry": {
+      "path": "inputs/registry.json",
+      "sha256": "985677df02eac4e983cd8ed9dcadc0ff26fc681a4747957fe05b0366e64d0a69",
+      "size_bytes": 1286
+    }
+  },
+  "invocation": {
+    "command": [
+      "<reviewed-omega-binary>",
+      "verify-aether-historical-journal",
+      "inputs/export.json",
+      "--registry",
+      "inputs/registry.json",
+      "--context",
+      "inputs/context.json",
+      "--expect-context",
+      "f7ccfdb318101446e01ea15407b844491cb8e08bcd5aeed7ead747b6e7cf3ca6"
+    ],
+    "exit_code": 0,
+    "input_snapshots_unchanged": true,
+    "outcome": "CONFIRMED",
+    "reason": null,
+    "stderr": {
+      "path": "provider.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    "stdout": {
+      "path": "provider.stdout",
+      "sha256": "3cf4af4dffc9c090c563c524e7dd0ac692737497de8d2734f61d7e00772d680f",
+      "size_bytes": 4415
+    }
+  },
+  "invocation_id": "6bbab228-541e-4eb1-8e80-a626495e65c8",
+  "limits": {
+    "max_binary_bytes": 67108864,
+    "max_input_bytes": 1048576,
+    "max_stream_bytes": 131072,
+    "timeout_ms": 10000
+  },
+  "provider": {
+    "manifest_sha256": "d5d1ec1e80249ba607dcffdd13d8e6baf4413b8277cbce64a71efe59decbfde3",
+    "repository": "aixaria0/CHIMERA-OMEGA",
+    "revision": "52a21a8eaa4363d648fdac805900175d81e13f07",
+    "tree": "ddb6a6b8ee60ee0ac5b865a69a8a60bf0cf06c0e"
+  },
+  "provider_report": {
+    "authorizations": [
+      {
+        "authorization_binding": "CONFIRMED",
+        "key_id": "key-96c537fd84f3c0b1",
+        "policy_id": "policy-2aa6fd15fe7e051f",
+        "policy_revision": 1,
+        "policy_sha256": "2aa6fd15fe7e051fb0df09cba32e2e04d0ae7871f03133c82a1d7e6bbf9d5dc4",
+        "receipt_sha256": "313a8f7ec122c5d6ca19154d53ec8adc71ad6da8570438793435f6b7294ecf9b",
+        "reviewer_key_status": "retired",
+        "role": "execution",
+        "signer_fingerprint_sha256": "96c537fd84f3c0b1e4aed0156711f5ef7df4311ca99685a533929513c19bc320",
+        "task_id": "aae94f0a-20d5-44b3-a79c-78789ccfe697"
+      },
+      {
+        "authorization_binding": "CONFIRMED",
+        "key_id": "key-96c537fd84f3c0b1",
+        "policy_id": "policy-2aa6fd15fe7e051f",
+        "policy_revision": 1,
+        "policy_sha256": "2aa6fd15fe7e051fb0df09cba32e2e04d0ae7871f03133c82a1d7e6bbf9d5dc4",
+        "receipt_sha256": "a5f5809d73860651008cc3978bb6df6f0e111cc5a30af602f569b47f83e84860",
+        "reviewer_key_status": "retired",
+        "role": "direct_parent",
+        "signer_fingerprint_sha256": "96c537fd84f3c0b1e4aed0156711f5ef7df4311ca99685a533929513c19bc320",
+        "task_id": "f44f4d63-f6d7-484f-9657-cb1c892747e7"
+      }
+    ],
+    "certificate_digest": "ff8981100f2f133101c075a501114e022bf5db4c771097c58b6dc8af4f99a84d",
+    "context_digest": "f7ccfdb318101446e01ea15407b844491cb8e08bcd5aeed7ead747b6e7cf3ca6",
+    "coverage": "GENESIS_TO_PINNED_HEAD",
+    "current_live_key_authorization": "UNKNOWN",
+    "direct_replay_binding": "CONFIRMED",
+    "external_journal_anchor": "UNKNOWN",
+    "historical_time_authorization": "UNKNOWN",
+    "independent_observation": "UNKNOWN",
+    "journal_chain_integrity": "CONFIRMED",
+    "journal_event_count": 35,
+    "journal_export_digest": "df99cfe30664feaaa25ad9eeb5b61c31ee52b74d4b4a7d1a0989deae5a3c50c9",
+    "journal_export_source_revision": "30dad8ec794e3f27600bfc0a5a5df072e79ba8c4",
+    "journal_head_sha256": "617b375dbd1a799699fbc4096aeb7bfd14c81f2a3f58830b1e6ceae3d6d57fd5",
+    "journal_sequence_integrity": "CONFIRMED",
+    "limitations": [
+      "The reviewer pin selects one registry snapshot and exact checkpoint; registry contents cannot choose their own authority.",
+      "Active or retired keys authorize only explicitly listed receipt hashes; revoked keys and withdrawn policies cannot authorize selected receipts.",
+      "Execution and direct replay parent may use different approved keys; ancestry beyond that parent is not assessed.",
+      "Policy v1 remains bounded to the compiled echo, ASCII-uppercase and UTF-8 SHA-256 semantics; registry entries cannot widen those semantics.",
+      "Producer current-key assessments remain attributed and unchanged; successful historical verification does not rewrite the producer's decision.",
+      "No timestamp establishes a validity period, compromise time or newest registry; current live-key authority and registry freshness remain UNKNOWN.",
+      "The bounded complete chain is relative to the selected head, not canonical global history or an independent external anchor.",
+      "Offline verification performs no target execution, public-testnet interaction or upstream operational action."
+    ],
+    "lineage_evidence_digest": "ebfe76acee2a5bca566c55398b99b9d783112a23708e2e92032ae12fe41f9d80",
+    "lineage_source_revision": "04d785f7beee5ff96d78e092a1d73b79987c9e0e",
+    "omega_core_verdict": "NOT_RUN",
+    "parent_receipt_event_binding": "CONFIRMED",
+    "producer_binary_attestation": "UNKNOWN",
+    "producer_view": {
+      "assessment": "accepted",
+      "authority": "ATTRIBUTED_ONLY",
+      "failed_invariants": [],
+      "journal_valid": true,
+      "selected_signer_fingerprint_sha256": "96c537fd84f3c0b1e4aed0156711f5ef7df4311ca99685a533929513c19bc320"
+    },
+    "raw_operation_binding": "CONFIRMED",
+    "receipt_event_binding": "CONFIRMED",
+    "receipt_sha256": "313a8f7ec122c5d6ca19154d53ec8adc71ad6da8570438793435f6b7294ecf9b",
+    "registry_authorization_binding": "CONFIRMED",
+    "registry_digest": "b0f0568ae1a380bdc2695ef9b0ad029dac6cc167437b4f07cf6867ef0e147e43",
+    "registry_freshness": "UNKNOWN",
+    "runtime_reproduction": "NOT_RUN",
+    "schema": "chimera-aether-historical-journal-binding/v1",
+    "scope": "EXACT_RECEIPT_REGISTRY_AUTHORIZATION_AND_PINNED_COMPLETE_JOURNAL_ONLY",
+    "selected_policy_binding": "CONFIRMED",
+    "signature_integrity": "CONFIRMED",
+    "source_repository": "aixaria0/aether-runtime",
+    "status": "CONFIRMED",
+    "task_id": "aae94f0a-20d5-44b3-a79c-78789ccfe697"
+  },
+  "receipt_digest": "sha256:8832edd572eb04f9cab4f24c082628a66f429dc93ef0945e7cf7025f9ee1861d",
+  "schema": "chimera-offline-review/v1",
+  "status": "RECORDED_PROVIDER_INVOCATION"
+}

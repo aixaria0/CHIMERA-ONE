@@ -24,6 +24,10 @@ jobs:
         run: |
           python3 tools/capture-attestation-conformance.py \
             --out "${{ runner.temp }}/one-attestation-evidence"
+      - name: Verify retained native capture and build-link bytes without external access
+        run: |
+          python3 tools/capture-build-conformance.py \
+            --out "${{ runner.temp }}/one-build-link-evidence"
       - name: Preserve invocation receipts, exact reports and provenance
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
@@ -35,4 +39,10 @@ jobs:
         with:
           name: one-capture-attestation-evidence
           path: ${{ runner.temp }}/one-attestation-evidence
+          if-no-files-found: error
+      - name: Preserve native capture, build-link validation and saved-byte controls
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: one-capture-build-link-evidence
+          path: ${{ runner.temp }}/one-build-link-evidence
           if-no-files-found: error

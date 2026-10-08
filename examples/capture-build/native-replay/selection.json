@@ -1,0 +1,10 @@
+{
+  "expected_binary": "3989b0b32395b21f1d33468e3af65225e36c22ea28fa7e931807bb8b02a54d10",
+  "expected_controller": "40346dd9adac3c22401cfd9a83a729c164d2951f2baf692bf74b4316f78caff1",
+  "expected_left": "sha256:02249909a7fbd5e5007785b6f4ceb5621b6ad89a34c0f3d4669784e6b9ccad26",
+  "expected_link": "sha256:499bad56abc83a7da78928d6557a6429eacfdbc4e60cee634f33d58a8f103419",
+  "expected_receipt": "sha256:8832edd572eb04f9cab4f24c082628a66f429dc93ef0945e7cf7025f9ee1861d",
+  "expected_right": "sha256:c050c79699b77eb86afc11c9642d164f4ec364c487dcc1841ab3e1ab6714649a",
+  "left_builder": "builder-a",
+  "right_builder": "builder-b"
+}

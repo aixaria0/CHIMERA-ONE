@@ -63,6 +63,14 @@ receipt/key/label selections. It requires OpenSSL 3 and preserves unknown witnes
 independence and source-build binding. Reproducible commands and a public test-key
 fixture are in [Capture attribution](docs/CAPTURE_ATTESTATION_V1.md).
 
+`bind-capture-build` joins a saved capture to separately pinned OMEGA build
+artifacts through the fixed external offline checker. `validate-capture-build`
+checks only the pinned saved link/capture bytes; `reverify-capture-build` repeats
+the external saved source/tree/binary checks. The original receipt remains
+unchanged, build execution stays attributed, and neither mode promotes claim
+truth or witness independence. Commands, literal native fixture pins and the
+two verification scopes are in [Capture build link](docs/CAPTURE_BUILD_LINK_V1.md).
+
 The central catalog includes all six current OMEGA capabilities. Registration
 does not authorize automatic execution of other catalog commands. Engineering
 stays within personally owned repositories; public testnets and third-party

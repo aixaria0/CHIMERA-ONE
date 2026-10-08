@@ -1,0 +1,10 @@
+{
+  "schema": "chimera-aether-historical-context/v1",
+  "source_repository": "aixaria0/aether-runtime",
+  "source_revision": "30dad8ec794e3f27600bfc0a5a5df072e79ba8c4",
+  "registry_digest": "b0f0568ae1a380bdc2695ef9b0ad029dac6cc167437b4f07cf6867ef0e147e43",
+  "journal_export_digest": "df99cfe30664feaaa25ad9eeb5b61c31ee52b74d4b4a7d1a0989deae5a3c50c9",
+  "certificate_digest": "ff8981100f2f133101c075a501114e022bf5db4c771097c58b6dc8af4f99a84d",
+  "journal_head_sha256": "617b375dbd1a799699fbc4096aeb7bfd14c81f2a3f58830b1e6ceae3d6d57fd5",
+  "journal_event_count": 35
+}

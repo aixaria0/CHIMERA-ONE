@@ -8,6 +8,7 @@ from pathlib import Path
 
 from .catalog import load_catalog
 from .capture_attestation import attest_capture, verify_capture_attestation
+from .capture_build import bind_capture_build, validate_capture_build, reverify_capture_build
 from .doctor import doctor, load_adapters
 from .federation import federation_report
 from .knowledge import build_index, query
@@ -162,6 +163,29 @@ def cmd_verify_attestation(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_capture_build(args: argparse.Namespace) -> int:
+    selected = dict(root=Path(args.path), expected_receipt=args.expect_receipt,
+                    expected_binary=args.expect_omega_binary, expected_controller=args.expect_controller,
+                    expected_left=args.expect_left_record, expected_right=args.expect_right_record,
+                    left_builder=args.left_builder, right_builder=args.right_builder)
+    try:
+        if args.command == "bind-capture-build":
+            report = bind_capture_build(**selected, checker_checkout=Path(args.build_checkout),
+                                        left=Path(args.left_build), right=Path(args.right_build), output=Path(args.output))
+        else:
+            selected.update(link=Path(args.link), expected_link=args.expect_link)
+            if args.command == "validate-capture-build":
+                report = validate_capture_build(**selected)
+            else:
+                report = reverify_capture_build(**selected, checker_checkout=Path(args.build_checkout),
+                                                left=Path(args.left_build), right=Path(args.right_build))
+    except (ReviewError, OSError, subprocess.SubprocessError) as exc:
+        print(json.dumps({"status": "REJECTED", "error": str(exc)}))
+        return 2
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="chimera-one", description="CHIMERA-ONE constellation control plane")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -239,6 +263,27 @@ def build_parser() -> argparse.ArgumentParser:
     attested.add_argument("--expect-key", required=True)
     attested.add_argument("--expect-signer", required=True)
     attested.set_defaults(func=cmd_verify_attestation)
+
+    for command in ("bind-capture-build", "validate-capture-build", "reverify-capture-build"):
+        build_link = sub.add_parser(command, help="bind or inspect a saved capture and separately pinned OMEGA build evidence")
+        build_link.add_argument("path")
+        build_link.add_argument("--expect-receipt", required=True)
+        build_link.add_argument("--expect-omega-binary", required=True)
+        build_link.add_argument("--expect-controller", required=True)
+        build_link.add_argument("--expect-left-record", required=True)
+        build_link.add_argument("--expect-right-record", required=True)
+        build_link.add_argument("--left-builder", required=True)
+        build_link.add_argument("--right-builder", required=True)
+        if command != "validate-capture-build":
+            build_link.add_argument("--build-checkout", required=True)
+            build_link.add_argument("--left-build", required=True)
+            build_link.add_argument("--right-build", required=True)
+        if command == "bind-capture-build":
+            build_link.add_argument("--output", required=True)
+        else:
+            build_link.add_argument("--link", required=True)
+            build_link.add_argument("--expect-link", required=True)
+        build_link.set_defaults(func=cmd_capture_build)
     return parser
 
 
