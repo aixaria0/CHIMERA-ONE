@@ -31,6 +31,7 @@ Intelligence may propose. Execution must be bounded. Claims require evidence. Ev
 - build a hardened multi-arch container carrying both control-plane and protocol-verifier surfaces.
 - invoke one pinned offline OMEGA historical verifier and preserve its exact input snapshots, native report and bounded process result in an externally verifiable capture.
 - sign a saved capture with a separately selected Ed25519 key and verify its signature and saved bytes under explicit receipt, key and signer-label pins.
+- execute one pinned local Chimera-AG Council measurement against a matched four-call baseline, preserve raw native transcripts, and recompute reference scores without fresh inference.
 
 ## Commands
 
@@ -70,6 +71,13 @@ the external saved source/tree/binary checks. The original receipt remains
 unchanged, build execution stays attributed, and neither mode promotes claim
 truth or witness independence. Commands, literal native fixture pins and the
 two verification scopes are in [Capture build link](docs/CAPTURE_BUILD_LINK_V1.md).
+
+`measure-chimera-council` adds a bounded local-model experiment with explicit
+source, suite and model selections. `validate-council-capture` checks its saved
+bytes and invokes only the pinned external transcript checker. The retained
+negative comparison, zero-call dry run, exact commands and execution limits are
+in [Council measurement](docs/COUNCIL_MEASUREMENT_V1.md). This adapter runs
+separately from the general planner and does not promote model agreement.
 
 The central catalog includes all six current OMEGA capabilities. Registration
 does not authorize automatic execution of other catalog commands. Engineering

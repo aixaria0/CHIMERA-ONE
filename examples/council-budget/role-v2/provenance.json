@@ -1,0 +1,17 @@
+{
+  "general_intelligence": "NOT_ASSESSED",
+  "head": "6c529e802833903db75b6f8358031082a8373b2b",
+  "model_execution": "ATTRIBUTED_NOT_ATTESTED",
+  "python": "3.12.15",
+  "repository": "aixaria0/Chimera-AG",
+  "run_attempt": "1",
+  "run_id": "37719874307",
+  "schema": "chimera-budget-acquisition/v1",
+  "source_sha256": {
+    "chimera/budget_benchmark.py": "14271c41e3ded8881a6c8b17f3b3fa538421effa353c64228ee11b940091fdb0",
+    "chimera/council.py": "53c2e4b1b8f9532a4291eac8b6b079633a71d669687ed1486b2d4d932c06a7e3",
+    "chimera/fabric.py": "c59cfa1e911473658fd30a9beaad09302f90f304179aead2e6653b4c2df6e636"
+  },
+  "tested_commit": "f8fcebdb272f227696f9d4d5b2d2f885bd7f6503",
+  "tested_tree": "173afbde5f5d058fe2fad59da856617ab977d05f"
+}
