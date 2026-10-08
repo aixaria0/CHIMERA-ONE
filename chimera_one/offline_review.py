@@ -188,16 +188,19 @@ def _command(binary: str, inputs: dict[str, str], expected: str) -> list[str]:
             inputs["registry"], "--context", inputs["context"], "--expect-context", expected]
 
 
-def _invoke(command: list[str], cwd: Path) -> tuple[int | None, bytes, bytes, str | None]:
+def _invoke(command: list[str], cwd: Path, *, timeout_seconds: float | None = None) -> tuple[int | None, bytes, bytes, str | None]:
+    timeout = TIMEOUT_SECONDS if timeout_seconds is None else timeout_seconds
+    if type(timeout) not in (int, float) or not 0 < timeout <= 900:
+        raise ReviewError("unsupported invocation timeout")
     if os.name != "posix":
         raise ReviewError("bounded invocation currently requires a POSIX host")
-    # The supported OMEGA command performs no network I/O. This is not an OS sandbox.
+    # Callers select fixed commands and their I/O contracts. This is not an OS sandbox.
     env = {"PATH": os.defpath, "LANG": "C.UTF-8", "LC_ALL": "C.UTF-8"}
     proc = subprocess.Popen(command, cwd=cwd, env=env, stdin=subprocess.DEVNULL,
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE, start_new_session=True)
     outputs = [bytearray(), bytearray()]
     reason: str | None = None
-    deadline = time.monotonic() + TIMEOUT_SECONDS
+    deadline = time.monotonic() + timeout
     with selectors.DefaultSelector() as selector:
         assert proc.stdout is not None and proc.stderr is not None
         for i, stream in enumerate((proc.stdout, proc.stderr)):

@@ -9,6 +9,7 @@ from pathlib import Path
 from .catalog import load_catalog
 from .capture_attestation import attest_capture, verify_capture_attestation
 from .capture_build import bind_capture_build, validate_capture_build, reverify_capture_build
+from .council_capture import measure_council, validate_council_capture
 from .doctor import doctor, load_adapters
 from .federation import federation_report
 from .knowledge import build_index, query
@@ -186,6 +187,28 @@ def cmd_capture_build(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_council_capture(args: argparse.Namespace) -> int:
+    if args.command == "measure-chimera-council" and not args.execute:
+        print(json.dumps({"status": "DRY_RUN", "inference_calls": 0, "automatic_promotion": "NOT_PERFORMED"}))
+        return 0
+    try:
+        if args.command == "measure-chimera-council":
+            report = measure_council(checkout=Path(args.chimera_checkout), suite=Path(args.suite),
+                                     expected_suite=args.expect_suite, model=args.model, expected_model=args.expect_model,
+                                     repeats=args.repeats, host=args.host, output=Path(args.output))
+            exit_code = 0 if report["invocation"]["outcome"] == "COMPLETED" else 3
+        else:
+            report = validate_council_capture(root=Path(args.path), checkout=Path(args.chimera_checkout),
+                                              expected_receipt=args.expect_receipt, expected_report=args.expect_report,
+                                              expected_suite=args.expect_suite, expected_model=args.expect_model)
+            exit_code = 0
+    except (ReviewError, OSError, subprocess.SubprocessError, ValueError, TypeError, KeyError) as exc:
+        print(json.dumps({"status": "REJECTED", "error": str(exc)}))
+        return 2
+    print(json.dumps(report, indent=2, sort_keys=True))
+    return exit_code
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="chimera-one", description="CHIMERA-ONE constellation control plane")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -284,6 +307,23 @@ def build_parser() -> argparse.ArgumentParser:
             build_link.add_argument("--link", required=True)
             build_link.add_argument("--expect-link", required=True)
         build_link.set_defaults(func=cmd_capture_build)
+    for command in ("measure-chimera-council", "validate-council-capture"):
+        council = sub.add_parser(command, help="one pinned local Council experiment or saved-transcript recomputation")
+        council.add_argument("--chimera-checkout", required=True)
+        council.add_argument("--expect-suite", required=True)
+        council.add_argument("--expect-model", required=True)
+        if command == "measure-chimera-council":
+            council.add_argument("--suite", required=True)
+            council.add_argument("--model", required=True)
+            council.add_argument("--repeats", type=int, default=2)
+            council.add_argument("--host", default="http://127.0.0.1:11434")
+            council.add_argument("--output", required=True)
+            council.add_argument("--execute", action="store_true")
+        else:
+            council.add_argument("path")
+            council.add_argument("--expect-receipt", required=True)
+            council.add_argument("--expect-report", required=True, help="selected report digest, or explicit NOT_RUN for a blocked capture")
+        council.set_defaults(func=cmd_council_capture)
     return parser
 
 

@@ -45,3 +45,14 @@ defines its authority and resource boundaries.
 
 The updated registry recognizes all current OMEGA manifest capabilities.
 Registration is descriptive and grants no automatic execution permission.
+
+## Executable reasoning measurement
+
+`measure-chimera-council` is a second fixed adapter: one personally owned,
+source-pinned local-model experiment with matched four-call caps. It captures
+raw native requests/responses and invokes the provider's separate deterministic
+reference evaluator. `validate-council-capture` recomputes saved transcripts
+without model inference. Candidates, model approvals, delivered answers and
+reference matches remain distinct; a model vote does not establish truth.
+The [adapter contract](COUNCIL_MEASUREMENT_V1.md) pins source and selected evidence,
+preserves failure/UNKNOWN dimensions and leaves general plan execution unchanged.

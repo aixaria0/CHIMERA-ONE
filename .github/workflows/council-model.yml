@@ -1,0 +1,121 @@
+name: ONE pinned local Council measurement
+
+on:
+  pull_request:
+    paths:
+      - chimera_one/council_capture.py
+      - chimera_one/cli.py
+      - chimera_one/offline_review.py
+      - tests/test_council_capture.py
+      - tools/council-capture-conformance.py
+      - .github/workflows/council-model.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  actual-owned-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PROVIDER_REV: 6c529e802833903db75b6f8358031082a8373b2b
+      MODEL_PIN: sha256:65ec06548149b04c096a120e4a6da9d4017ea809c91734ea5631e89f96ddc57b
+      SUITE_PIN: sha256:719e63742eff6937a1f436685b4b67ed0a1a52e37f4756191a0beef9b57ca185
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Select exact personally owned public provider source
+        run: |
+          git init "$RUNNER_TEMP/owned-chimera-ag"
+          git -C "$RUNNER_TEMP/owned-chimera-ag" remote add origin https://github.com/aixaria0/Chimera-AG.git
+          git -C "$RUNNER_TEMP/owned-chimera-ag" fetch --depth=1 origin "$PROVIDER_REV"
+          git -C "$RUNNER_TEMP/owned-chimera-ag" checkout --detach FETCH_HEAD
+      - name: Start disposable loopback-only Ollama and acquire ordinary weights
+        run: |
+          docker run -d --name one-owned-ollama --cpus=2 --memory=3g \
+            --cap-drop=ALL --security-opt=no-new-privileges \
+            -p 127.0.0.1:11434:11434 -e OLLAMA_NUM_PARALLEL=1 \
+            -e OLLAMA_MAX_LOADED_MODELS=1 ollama/ollama:0.12.3
+          python - <<'PY'
+          import time, urllib.request
+          for attempt in range(90):
+              try:
+                  urllib.request.urlopen('http://127.0.0.1:11434/api/version', timeout=1).close()
+                  break
+              except OSError:
+                  time.sleep(1)
+          else:
+              raise SystemExit('owned model server did not start')
+          PY
+          docker exec one-owned-ollama ollama pull qwen2.5:1.5b
+      - name: Execute the fixed ONE adapter with reviewed model and suite pins
+        run: |
+          mkdir "$RUNNER_TEMP/one-council-evidence"
+          python -B -m chimera_one measure-chimera-council \
+            --chimera-checkout "$RUNNER_TEMP/owned-chimera-ag" \
+            --suite examples/council-budget/role-v2/suite.json \
+            --expect-suite "$SUITE_PIN" --model qwen2.5:1.5b --expect-model "$MODEL_PIN" \
+            --repeats 2 --host http://127.0.0.1:11434 \
+            --output "$RUNNER_TEMP/one-council-evidence/capture" --execute \
+            > "$RUNNER_TEMP/one-council-evidence/acquisition.stdout"
+          cat "$RUNNER_TEMP/one-council-evidence/acquisition.stdout"
+      - name: Recompute saved native bytes and run resealed rejection controls
+        run: |
+          python -B - <<'PY'
+          import json, os, subprocess, sys
+          from pathlib import Path
+          root = Path(os.environ['RUNNER_TEMP']) / 'one-council-evidence'
+          receipt = json.loads((root/'capture/receipt.json').read_bytes())
+          # These occurrence pins select this trusted acquisition step. They are
+          # not independent attribution or a policy for accepting untrusted pins.
+          subprocess.run([sys.executable, '-B', 'tools/council-capture-conformance.py',
+              '--capture', str(root/'capture'), '--chimera-checkout', os.environ['RUNNER_TEMP']+'/owned-chimera-ag',
+              '--expect-receipt', receipt['receipt_digest'], '--expect-report', receipt['report_digest'],
+              '--expect-suite', os.environ['SUITE_PIN'], '--expect-model', os.environ['MODEL_PIN'],
+              '--output', str(root/'controls.json')], check=True)
+          controls = json.loads((root/'controls.json').read_bytes())
+          summary = controls['validation']['summary']
+          assert receipt['invocation']['outcome'] == summary['status'] == 'COMPLETED'
+          assert summary['pairs'] == summary['complete_pairs'] == 12
+          assert summary['single_requests'] == summary['council_requests'] == 48
+          assert summary['single_generated_tokens'] > 0 and summary['council_generated_tokens'] > 0
+          assert summary['collective_superiority'] == 'NOT_ESTABLISHED'
+          assert len(controls['rejection_controls']) == 17
+          print(json.dumps(summary, sort_keys=True))
+          PY
+      - name: Record exact acquisition source and runtime context
+        env:
+          ACTUAL_HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+        run: |
+          docker image inspect ollama/ollama:0.12.3 > "$RUNNER_TEMP/one-council-evidence/ollama-image.json"
+          python -B - <<'PY'
+          import hashlib, json, os, platform, subprocess
+          from pathlib import Path
+          from chimera_one.council_capture import provider_ref
+          value = {'schema':'one-council-acquisition/v1', 'repository':'aixaria0/CHIMERA-ONE',
+              'head':os.environ['ACTUAL_HEAD'], 'run_id':os.environ['RUN_ID'], 'run_attempt':os.environ['RUN_ATTEMPT'],
+              'tested_commit':subprocess.check_output(['git','rev-parse','HEAD'], text=True).strip(),
+              'tested_tree':subprocess.check_output(['git','rev-parse','HEAD^{tree}'], text=True).strip(),
+              'provider':provider_ref(), 'python':platform.python_version(),
+              'adapter_sha256':hashlib.sha256(Path('chimera_one/council_capture.py').read_bytes()).hexdigest(),
+              'model_execution':'ATTRIBUTED_NOT_ATTESTED', 'general_intelligence':'NOT_ASSESSED'}
+          path = Path(os.environ['RUNNER_TEMP'])/'one-council-evidence/provenance.json'
+          path.write_text(json.dumps(value, indent=2, sort_keys=True)+'\n')
+          PY
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: one-council-model-evidence
+          path: ${{ runner.temp }}/one-council-evidence/
+          if-no-files-found: error
+          retention-days: 90
+      - name: Stop the disposable owned model server
+        if: always()
+        run: docker rm -f one-owned-ollama
