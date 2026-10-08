@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ONE pinned capture/build evidence link v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "status",
+    "scope",
+    "capture",
+    "build_selection",
+    "checker",
+    "checker_invocation",
+    "comparison",
+    "authority",
+    "link_digest"
+  ],
+  "properties": {
+    "schema": {
+      "const": "chimera-capture-build-link/v1"
+    },
+    "status": {
+      "const": "RECORDED_BUILD_EVIDENCE_CHECK"
+    },
+    "scope": {
+      "const": "CAPTURE_SELECTED_BINARY_AND_SOURCE_TO_PINNED_SAVED_BUILD_EVIDENCE_ONLY"
+    },
+    "capture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "receipt_digest",
+        "invocation_id",
+        "provider",
+        "binary_sha256",
+        "provider_outcome"
+      ],
+      "properties": {
+        "receipt_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "invocation_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "provider": {
+          "$ref": "offline-review.schema.json#/properties/provider"
+        },
+        "binary_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "provider_outcome": {
+          "enum": [
+            "CONFIRMED",
+            "REJECTED",
+            "BLOCKED"
+          ]
+        }
+      }
+    },
+    "build_selection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_revision",
+        "source_tree",
+        "binary_sha256",
+        "controller_sha256",
+        "left_record_digest",
+        "right_record_digest",
+        "left_builder",
+        "right_builder"
+      ],
+      "properties": {
+        "source_revision": {
+          "const": "52a21a8eaa4363d648fdac805900175d81e13f07"
+        },
+        "source_tree": {
+          "const": "ddb6a6b8ee60ee0ac5b865a69a8a60bf0cf06c0e"
+        },
+        "binary_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "controller_sha256": {
+          "const": "40346dd9adac3c22401cfd9a83a729c164d2951f2baf692bf74b4316f78caff1"
+        },
+        "left_record_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "right_record_digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "left_builder": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,47}$"
+        },
+        "right_builder": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{0,47}$"
+        }
+      }
+    },
+    "checker": {
+      "const": {
+        "path": "tools/omega-build-evidence.py",
+        "repository": "aixaria0/CHIMERA-OMEGA",
+        "revision": "9ab2390364fd8c89f29fa46569b58d33ddb61869",
+        "sha256": "40346dd9adac3c22401cfd9a83a729c164d2951f2baf692bf74b4316f78caff1",
+        "tree": "d80c482dc2a6e20ba4e2cc56217b773772b61610"
+      }
+    },
+    "checker_invocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "exit_code",
+        "stdout_utf8",
+        "stderr_utf8"
+      ],
+      "properties": {
+        "exit_code": {
+          "type": "integer",
+          "const": 0
+        },
+        "stdout_utf8": {
+          "type": "string",
+          "maxLength": 4096
+        },
+        "stderr_utf8": {
+          "const": ""
+        }
+      }
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "binary_sha256",
+        "dimensions",
+        "records",
+        "schema",
+        "scope",
+        "source_revision",
+        "source_tree",
+        "status"
+      ],
+      "properties": {
+        "binary_sha256": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "dimensions": {
+          "const": {
+            "build_execution": "ATTRIBUTED_NOT_ATTESTED",
+            "ci_declarations": "NOT_AUTHENTICATED_BY_THIS_VERIFIER",
+            "compiler_correctness": "UNKNOWN",
+            "freshness": "UNKNOWN",
+            "general_claim": "NOT_ASSESSED",
+            "hardware_independence": "UNKNOWN",
+            "historical_capture_binary_binding": "NOT_ASSESSED",
+            "organizational_independence": "UNKNOWN",
+            "saved_binary_agreement": "CONFIRMED",
+            "saved_source_git_object_binding": "CONFIRMED",
+            "target_execution": "NOT_RUN"
+          }
+        },
+        "records": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "schema": {
+          "const": "chimera-omega/source-build-comparison/v1"
+        },
+        "scope": {
+          "const": "TWO_ATTRIBUTED_ACQUISITIONS_WITH_TWO_FRESH_BUILDS_EACH"
+        },
+        "source_revision": {
+          "const": "52a21a8eaa4363d648fdac805900175d81e13f07"
+        },
+        "source_tree": {
+          "const": "ddb6a6b8ee60ee0ac5b865a69a8a60bf0cf06c0e"
+        },
+        "status": {
+          "const": "PINNED_SAVED_SOURCE_AND_BINARY_BYTES_MATCH"
+        }
+      }
+    },
+    "authority": {
+      "const": {
+        "build_execution": "ATTRIBUTED_NOT_ATTESTED",
+        "toolchain_closure": "UNKNOWN",
+        "compiler_correctness": "UNKNOWN",
+        "independent_observation": "UNKNOWN",
+        "organizational_independence": "UNKNOWN",
+        "hardware_independence": "UNKNOWN",
+        "freshness": "UNKNOWN",
+        "signature_integrity": "NOT_ASSESSED",
+        "signer_authorization": "NOT_ASSESSED",
+        "general_claim_verdict": "NOT_ASSESSED",
+        "provider_execution_reproduced": "NOT_RUN",
+        "build_reexecution": "NOT_RUN",
+        "target_runtime_reproduction": "NOT_RUN",
+        "os_network_sandbox": "NOT_ESTABLISHED"
+      }
+    },
+    "link_digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    }
+  }
+}

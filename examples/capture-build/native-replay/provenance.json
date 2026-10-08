@@ -1,0 +1,39 @@
+{
+  "acquisition": "New real Linux x86_64 OMEGA invocation on saved owned Aether replay evidence; externally selected retained CI build artifacts were reverified before linking and after saved-link validation.",
+  "artifact_sha256": {
+    "README.md": "a18c83c9a2b1243adab943344a803b8538520f1ff6d038906736cd01fd0c1c0a",
+    "acquisition-controls.json": "5edc76e4121009bc0ebae0a912ab8f554eebe4c927304126117f425c807ea644",
+    "build-link.json": "dc245bb087d014c160bbde36141829505dade096b6b7d580a901a9fd76103440",
+    "capture/inputs/context.json": "ae0723ff35891b86b85c35a831f15a348554e02f8dbc18455b3c91b0ab222671",
+    "capture/inputs/export.json": "2695f3aa7b967f50bf79f24711fdebf3a1cad1ca50b3faf95ee3f36dcd02d1e0",
+    "capture/inputs/registry.json": "985677df02eac4e983cd8ed9dcadc0ff26fc681a4747957fe05b0366e64d0a69",
+    "capture/provider.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "capture/provider.stdout": "3cf4af4dffc9c090c563c524e7dd0ac692737497de8d2734f61d7e00772d680f",
+    "capture/receipt.json": "266f90174b3661076202694f92d768bacc0f90b4b2a29be21ee70aa668508ad9",
+    "reverify-capture-build.json": "fa31601d1bb55592f1b021b070443af355d873cd735f310b3837ab704083dc00",
+    "selection.json": "286acbd4bce6361cdd04ac917c50d3cae8dd96fb6c65507a808c4e0a1125c76b",
+    "validate-capture-build.json": "66f573a7ae31ccb763cf850a62d5ca4a99059976e68a02d29bf04bace5e78212"
+  },
+  "build_checker_revision": "9ab2390364fd8c89f29fa46569b58d33ddb61869",
+  "build_evidence_origin": "https://github.com/aixaria0/CHIMERA-OMEGA/actions/runs/37707542253",
+  "build_execution": "ATTRIBUTED_NOT_ATTESTED",
+  "capture_selection_origin": "LOCAL_CAPTURE_AUTHORING_NOT_INDEPENDENT_REVIEW",
+  "compiler_correctness": "UNKNOWN",
+  "general_claim_verdict": "NOT_ASSESSED",
+  "hardware_independence": "UNKNOWN",
+  "historical_arm64_capture": "UNCHANGED_NOT_RELABELLED",
+  "one_source_sha256": {
+    "chimera_one/capture_build.py": "87b1631c4ec24408701d114043d7325cea6741409215826ed0b60a855c04c864",
+    "chimera_one/cli.py": "97d9d0d9f5375838648c25fed77785d8fa90be9ddce35c45f2ab52a8eb8676f3",
+    "chimera_one/offline_review.py": "dc74b74d9a30c845138bb3ffb0aac886dee5648173408fc157cfa7f927d23e0c",
+    "chimera_one/protocol.py": "9a35a2608f7fd4d04a0906d2dbce96fb4d426431104c93ec92a3ca380ebd99e1"
+  },
+  "one_source_snapshot": "DISK_SOURCE_BYTES_ONLY",
+  "organizational_independence": "UNKNOWN",
+  "provider_source_revision": "52a21a8eaa4363d648fdac805900175d81e13f07",
+  "public_testnet_interaction": "NONE",
+  "raw_external_build_bytes": "External OMEGA CI artifacts, not copied into ONE source tree or this fixture.",
+  "schema": "chimera-one-native-build-link-acquisition/v1",
+  "target_runtime_reproduction": "NOT_RUN",
+  "toolchain_closure": "UNKNOWN"
+}

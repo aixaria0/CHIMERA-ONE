@@ -1,0 +1,31 @@
+{
+  "build_reexecution": "NOT_RUN",
+  "provider_execution_reproduced": "NOT_RUN",
+  "public_testnet_interaction": "NONE",
+  "raw_build_evidence_reverified": "CONFIRMED",
+  "raw_build_rejection_controls": [
+    "fully-rehashed-binary-substitution",
+    "fully-rehashed-source-substitution",
+    "fully-rehashed-acquisition-reuse",
+    "fully-rehashed-tool-fingerprint-substitution",
+    "raw-build-log-substitution"
+  ],
+  "saved_link_rejection_controls": [
+    "wrong-expected_receipt",
+    "wrong-expected_link",
+    "wrong-expected_binary",
+    "wrong-expected_controller",
+    "wrong-expected_left",
+    "wrong-expected_right",
+    "wrong-left-builder",
+    "wrong-right-builder",
+    "capture-occurrence-transplant-with-rehash",
+    "authority-extension-with-rehash",
+    "claim-promotion-with-rehash",
+    "build-record-transplant-with-rehash",
+    "checker-transcript-tampering-under-original-pin",
+    "captured-provider-stream-substitution"
+  ],
+  "status": "CONFORMANCE_PASSED",
+  "target_runtime_reproduction": "NOT_RUN"
+}

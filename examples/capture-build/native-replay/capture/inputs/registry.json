@@ -1,0 +1,38 @@
+{
+  "schema": "chimera-aether-trust-registry/v1",
+  "source_repository": "aixaria0/aether-runtime",
+  "lineage_source_revision": "04d785f7beee5ff96d78e092a1d73b79987c9e0e",
+  "keys": [
+    {
+      "id": "key-96c537fd84f3c0b1",
+      "public_key_hex": "981b16a86b8ca255206530e6092134299fee121d9fd30368126374428da2bf0b",
+      "fingerprint_sha256": "96c537fd84f3c0b1e4aed0156711f5ef7df4311ca99685a533929513c19bc320",
+      "status": "retired"
+    }
+  ],
+  "policies": [
+    {
+      "id": "policy-2aa6fd15fe7e051f",
+      "policy_revision": 1,
+      "operation": "echo",
+      "executor_id": "rust-builtin-v1",
+      "deadline_ms": 10000,
+      "policy_sha256": "2aa6fd15fe7e051fb0df09cba32e2e04d0ae7871f03133c82a1d7e6bbf9d5dc4",
+      "status": "approved"
+    }
+  ],
+  "authorizations": [
+    {
+      "task_id": "aae94f0a-20d5-44b3-a79c-78789ccfe697",
+      "receipt_sha256": "313a8f7ec122c5d6ca19154d53ec8adc71ad6da8570438793435f6b7294ecf9b",
+      "key_id": "key-96c537fd84f3c0b1",
+      "policy_id": "policy-2aa6fd15fe7e051f"
+    },
+    {
+      "task_id": "f44f4d63-f6d7-484f-9657-cb1c892747e7",
+      "receipt_sha256": "a5f5809d73860651008cc3978bb6df6f0e111cc5a30af602f569b47f83e84860",
+      "key_id": "key-96c537fd84f3c0b1",
+      "policy_id": "policy-2aa6fd15fe7e051f"
+    }
+  ]
+}

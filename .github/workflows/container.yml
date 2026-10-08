@@ -47,6 +47,20 @@ jobs:
             --expect-key sha256:21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9 \
             --expect-signer test-vector-reviewer \
             --attestation /fixtures/capture-attestation/test-only.replay.attestation.json
+      - name: Validate native capture build-link bytes without private provider access
+        run: |
+          docker run --rm --read-only --cap-drop ALL --security-opt no-new-privileges \
+            --tmpfs /tmp:rw,noexec,nosuid,size=16m \
+            --volume "${PWD}/examples:/fixtures:ro" \
+            chimera-one:test validate-capture-build /fixtures/capture-build/native-replay/capture \
+            --link /fixtures/capture-build/native-replay/build-link.json \
+            --expect-receipt sha256:8832edd572eb04f9cab4f24c082628a66f429dc93ef0945e7cf7025f9ee1861d \
+            --expect-link sha256:499bad56abc83a7da78928d6557a6429eacfdbc4e60cee634f33d58a8f103419 \
+            --expect-omega-binary 3989b0b32395b21f1d33468e3af65225e36c22ea28fa7e931807bb8b02a54d10 \
+            --expect-controller 40346dd9adac3c22401cfd9a83a729c164d2951f2baf692bf74b4316f78caff1 \
+            --expect-left-record sha256:02249909a7fbd5e5007785b6f4ceb5621b6ad89a34c0f3d4669784e6b9ccad26 \
+            --expect-right-record sha256:c050c79699b77eb86afc11c9642d164f4ec364c487dcc1841ab3e1ab6714649a \
+            --left-builder builder-a --right-builder builder-b
 
   publish:
     if: github.event_name != 'pull_request'
