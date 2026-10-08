@@ -1,0 +1,32 @@
+{
+  "aggregate": {
+    "council_elapsed_ms": 508261,
+    "council_requests": 96,
+    "council_verified_answers": 23,
+    "single_elapsed_ms": 224142,
+    "single_requests": 96,
+    "single_verified_answers": 24
+  },
+  "authority": {
+    "answer_origin": "FIXED_LOCAL_ALGORITHM",
+    "automatic_promotion": "NOT_PERFORMED",
+    "collective_superiority": "NOT_ESTABLISHED",
+    "general_intelligence": "NOT_ASSESSED",
+    "generalization_outside_selected_families": "NOT_ESTABLISHED",
+    "model_execution": "ATTRIBUTED_NOT_ATTESTED",
+    "routing_basis": "TWO_SAVED_MATCHED_REQUEST_SUITES",
+    "tool_cpu_budget": "NOT_MEASURED",
+    "training_data_independence": "NOT_ESTABLISHED"
+  },
+  "decision": "SINGLE_FOUR_SAMPLE_CHECKED_PROGRAMS",
+  "evidence_digest": "sha256:a010084f89462aadd7b8e4c9e498fe54264ee69cbd77dfa70b1a78ddbcc393b9",
+  "policy_digest": "sha256:4cd4fa71c6eea86b31f76b72c0b4603a5f1a66794a569f88e1296668fe31e319",
+  "rationale": "NONINFERIOR_VERIFIED_ANSWERS_AND_LOWER_OBSERVED_ELAPSED_TIME_ON_BOTH_SUITES",
+  "schema": "one-program-routing-policy/v1",
+  "scope": "EXACT_V3_SAVED_NATIVE_PROGRAM_EVIDENCE_ONLY",
+  "task_kinds": [
+    "integer-expression",
+    "state-transition",
+    "directed-reachability"
+  ]
+}

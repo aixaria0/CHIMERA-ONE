@@ -32,6 +32,7 @@ Intelligence may propose. Execution must be bounded. Claims require evidence. Ev
 - invoke one pinned offline OMEGA historical verifier and preserve its exact input snapshots, native report and bounded process result in an externally verifiable capture.
 - sign a saved capture with a separately selected Ed25519 key and verify its signature and saved bytes under explicit receipt, key and signer-label pins.
 - execute one pinned local Chimera-AG Council measurement against a matched four-call baseline, preserve raw native transcripts, and recompute reference scores without fresh inference.
+- derive and validate one family-limited checked-program routing policy from two externally pinned native suites, without fresh inference.
 
 ## Commands
 
@@ -45,6 +46,9 @@ python -m chimera_one query evidence
 python -m chimera_one plan "analyze this system change"
 python -m chimera_one plan "falsify this staking claim" --domain rchain-audit
 python -m chimera_one protocol-validate tests/vectors/run.valid.json
+python -m chimera_one derive-program-policy \
+  --evidence examples/program-routing/v3/evidence.json \
+  --expect-evidence sha256:a010084f89462aadd7b8e4c9e498fe54264ee69cbd77dfa70b1a78ddbcc393b9
 chimera-protocol validate-run tests/vectors/run.valid.json
 ```
 
@@ -78,6 +82,15 @@ bytes and invokes only the pinned external transcript checker. The retained
 negative comparison, zero-call dry run, exact commands and execution limits are
 in [Council measurement](docs/COUNCIL_MEASUREMENT_V1.md). This adapter runs
 separately from the general planner and does not promote model agreement.
+
+`derive-program-policy` consumes the reviewed V3 program evidence and selects
+four checked single-model samples for the three exact typed task families. Across
+the regression and transfer suites this route delivered 24/24 answers versus
+23/24 for Council, with zero false accepts and lower observed elapsed time on
+both suites. `validate-program-policy` recomputes the decision under external
+evidence/policy pins with no inference. The policy does not apply outside those
+families or authorize general-plan execution. See
+[Checked-program routing policy](docs/PROGRAM_ROUTING_POLICY_V1.md).
 
 The central catalog includes all six current OMEGA capabilities. Registration
 does not authorize automatic execution of other catalog commands. Engineering

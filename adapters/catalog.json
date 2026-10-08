@@ -41,7 +41,10 @@
       "required_files": [
         "pyproject.toml",
         "chimera/routing_cli.py",
-        "chimera/council_cli.py"
+        "chimera/council_cli.py",
+        "chimera/bounded_program.py",
+        "chimera/program_benchmark.py",
+        "chimera/typed_verification.py"
       ],
       "entrypoints": [
         {
@@ -57,6 +60,16 @@
             "chimera-council"
           ],
           "mode": "advisory"
+        },
+        {
+          "capability": "chimera.checked-program-evidence",
+          "command": [
+            "python3",
+            "-m",
+            "chimera.program_benchmark",
+            "validate"
+          ],
+          "mode": "verification"
         }
       ]
     },
