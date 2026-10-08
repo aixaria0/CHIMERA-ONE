@@ -20,9 +20,19 @@ jobs:
         run: |
           python3 tools/recorded-capture-conformance.py \
             --out "${{ runner.temp }}/one-offline-evidence"
+      - name: Verify public test-key capture signatures and reject substitution
+        run: |
+          python3 tools/capture-attestation-conformance.py \
+            --out "${{ runner.temp }}/one-attestation-evidence"
       - name: Preserve invocation receipts, exact reports and provenance
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: one-offline-omega-evidence
           path: ${{ runner.temp }}/one-offline-evidence
+          if-no-files-found: error
+      - name: Preserve test-key attestations, binding reports and provenance
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: one-capture-attestation-evidence
+          path: ${{ runner.temp }}/one-attestation-evidence
           if-no-files-found: error

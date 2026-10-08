@@ -178,6 +178,12 @@ The real-provider harness above remains runnable on an authorized local checkout
 its successful two-case/seven-control arm64 acquisition is retained separately.
 Other capabilities remain metadata until their own adapter is implemented.
 
+The capture can also carry a separate Ed25519 attestation under independently
+selected receipt, key and signer-label pins. See
+[capture attribution](CAPTURE_ATTESTATION_V1.md). The original receipt and native
+report are preserved; signing does not establish an independent witness,
+source-to-binary build binding, freshness or general claim truth.
+
 An exact retained replay capture is checked in under `examples/offline-review`,
 with acquisition/source/binary/artifact hashes and the explicit dirty-worktree
 declaration from pre-commit conformance. Its source-byte hashes identify the tested

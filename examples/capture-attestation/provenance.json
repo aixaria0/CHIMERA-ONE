@@ -1,0 +1,38 @@
+{
+  "artifact_sha256": {
+    "binding-report.json": "7bb8249bb4c1dded3819ea989cf635a429edac7cd3c0b82be0b218d180653b86",
+    "test-only.replay.attestation.json": "4e2165d6432a62c43a664be5b724a8e29cc3f2b12fff4d8690a96827b1374bf6"
+  },
+  "attestation_digest": "sha256:47938543d3510e6d4c4068d7f0a476aa40483bba989d41c91c366f3590942776",
+  "control_plane_source_binding": "DISK_SOURCE_BYTES_ONLY",
+  "control_plane_source_sha256": {
+    "chimera_one/capture_attestation.py": "91510efffd9bfd776b71128a57f50e4ab1398c79ad8503038a98bcba033d4748",
+    "chimera_one/cli.py": "dd156bb05134e62b83d924678bce84dcdf12dd5af25754807e529a3fa23de441",
+    "chimera_one/offline_review.py": "dc74b74d9a30c845138bb3ffb0aac886dee5648173408fc157cfa7f927d23e0c",
+    "chimera_one/protocol.py": "9a35a2608f7fd4d04a0906d2dbce96fb4d426431104c93ec92a3ca380ebd99e1",
+    "tools/capture-attestation-conformance.py": "952dbb7b59d112f2f67259d7d3f8734377906e1ac28002f248a0b02a21eb367a"
+  },
+  "expected_key": "sha256:21fe31dfa154a261626bf854046fd2271b7bed4b6abe45aa58877ef47f9721b9",
+  "expected_receipt": "sha256:ad8ca4df8e73093232f1cd7302ed255287d9383a56e8ad55e52a768e7491d5a2",
+  "expected_signer": "test-vector-reviewer",
+  "fresh_provider_invocation": "NOT_RUN",
+  "independent_witness": "NOT_ESTABLISHED",
+  "key_authority": "PUBLIC_RFC8032_TEST_VECTOR_ONLY",
+  "mode": "PUBLIC_TEST_KEY_AND_RETAINED_REAL_CAPTURE_ONLY",
+  "private_provider_checkout": "NOT_PERFORMED",
+  "production_signer_enrollment": "NOT_PERFORMED",
+  "public_testnet_interaction": "NONE",
+  "rejection_controls": [
+    "unselected key",
+    "unselected receipt",
+    "unselected signer label",
+    "invalid signature under fresh attestation hash",
+    "witness role substitution",
+    "signed authority extension",
+    "saved native output modification",
+    "valid signed receipt transplanted onto another occurrence",
+    "source-build promotion under fresh receipt pin"
+  ],
+  "schema": "chimera-one-capture-attestation-conformance/v1",
+  "source_build_binding": "UNKNOWN"
+}

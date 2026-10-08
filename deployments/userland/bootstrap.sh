@@ -11,7 +11,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
   python3 python3-pip python3-venv python3-dev \
   build-essential clang cmake ninja-build pkg-config \
   protobuf-compiler protobuf-compiler-grpc libprotobuf-dev libgrpc++-dev \
-  libssl-dev
+  libssl-dev openssl
 sudo apt-get clean
 
 export NVM_DIR="$HOME/.nvm"
