@@ -3,5 +3,6 @@
   "objective": "Execute and verify the bounded 12-qubit quantum lane",
   "domain": "quantum",
   "adapter": "quantum001-elevator/v1",
-  "seed": 42
+  "seed": 42,
+  "local_pbft_quorum": true
 }
