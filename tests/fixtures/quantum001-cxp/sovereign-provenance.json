@@ -1,0 +1,13 @@
+{
+  "schema": "chimera-cross-repo-fixture-provenance/v1",
+  "producer": "aixaria0/Sovereign-Lattice",
+  "producer_branch": "cxp-local-quorum-v1",
+  "producer_commit": "93b6c0fc1bb469faca558eae5c04f793b6f485c8",
+  "workflow_run_id": 38018446712,
+  "artifact_name": "sovereign-cxp-local-quorum",
+  "artifact_sha256": "129272ce6826d349886cbfef04604425b25ae33a3c327a9b39509d6d7f1dadfb",
+  "bound_cxp_sha256": "8fe0c9456f4c9a64f47aa0e265d3e18972128f7979dc251ac4decdab1ba19dde",
+  "certificate_commitment_sha256": "28b62e2f6395fe97e36be0a9a653de0b10207754614fce47bd27484d9ab213d0",
+  "scope": "LOCAL_IN_PROCESS_PBFT_QUORUM",
+  "note": "Retained from a successful Sovereign-Lattice GitHub Actions run; proves local cryptographic PBFT quorum reproduction only, not distributed finality."
+}
