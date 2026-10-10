@@ -1,0 +1,7 @@
+{
+  "schema": "chimera-objective/v1",
+  "objective": "Execute and verify the bounded 12-qubit quantum lane",
+  "domain": "quantum",
+  "adapter": "quantum001-elevator/v1",
+  "seed": 42
+}
