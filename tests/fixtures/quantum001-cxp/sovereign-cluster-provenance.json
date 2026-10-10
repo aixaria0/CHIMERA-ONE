@@ -1,0 +1,12 @@
+{
+  "schema": "chimera-cross-repo-fixture-provenance/v1",
+  "producer": "aixaria0/Sovereign-Lattice",
+  "producer_branch": "cxp-local-quorum-v1",
+  "producer_commit": "195bbb2df945dcdabe08fc171324c58826b13c93",
+  "workflow_run_id": 38018658551,
+  "artifact_name": "sovereign-cxp-cluster-finality",
+  "artifact_sha256": "45e25cba266add0af6bd0caccdf7de74582d5da16586d31e879f9931e0997f8a",
+  "bound_cxp_sha256": "8fe0c9456f4c9a64f47aa0e265d3e18972128f7979dc251ac4decdab1ba19dde",
+  "scope": "LOCAL_4_PROCESS_LOOPBACK_PBFT",
+  "note": "Retained from a successful four-process loopback Sovereign-Lattice run with DKG and exact CXP digest commit observed on all four replicas. Host, organizational, cross-host and global finality remain UNKNOWN."
+}
