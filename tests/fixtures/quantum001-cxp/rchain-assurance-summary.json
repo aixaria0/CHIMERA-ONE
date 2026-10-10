@@ -1,0 +1,22 @@
+{
+  "schema": "quantum-cxp-assurance-run/v1",
+  "status": "PASS",
+  "scope": "DETACHED_CXP_CONTRACT_REPRODUCTION_WITH_THREE_LOCAL_PROCESSES",
+  "operation": "quantum-cxp/v1",
+  "cxpSha256": "8fe0c9456f4c9a64f47aa0e265d3e18972128f7979dc251ac4decdab1ba19dde",
+  "processIds": [2517, 2525, 2533],
+  "distinctProcesses": 3,
+  "verifierActorIds": [
+    "sha256:76e29c06a02b165d87715ec27bed1d277ee88089ba167860c076e90f265293e0",
+    "sha256:90deee49d59e130cc62c088a6108e925d72069edbf64a42bbc8f31e9690aab92"
+  ],
+  "distinctVerifiers": 2,
+  "reportStatus": "PASS",
+  "reportCode": "VERIFIED",
+  "reviewerStatus": "PASS",
+  "limitations": [
+    "Three local processes do not establish host or organizational independence.",
+    "This assurance run does not execute the quantum workload or establish QPU execution.",
+    "External truth remains outside this verifier scope."
+  ]
+}

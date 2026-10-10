@@ -1,0 +1,107 @@
+{
+  "authority": {
+    "certificate_level": "ASSURED",
+    "deterministic_replay": "CONFIRMED",
+    "distributed_consensus": "NOT_RUN",
+    "external_truth": "UNKNOWN",
+    "hardware_attestation": "UNKNOWN",
+    "local_execution": "CONFIRMED",
+    "qpu_execution": "UNKNOWN",
+    "signed_execution": "CONFIRMED",
+    "two_process_quorum": "CONFIRMED"
+  },
+  "certificate": {
+    "limitations": [
+      "Distinct local processes and keys do not establish independent organizations or hosts.",
+      "PASS is bounded to the included package, replay, signatures and trace equality.",
+      "QPU execution remains UNKNOWN until a separately authenticated hardware/backend receipt is bound."
+    ],
+    "provider_certificate_sha256": "15e40e6bfa1f22f2410899c479c5440498e784b671f00c13ae20109c39a15bea",
+    "provider_scope": "LOCAL_SIGNED_QUANTUM_EXECUTION_REPLAY_AND_TWO_PROCESS_VERIFICATION",
+    "provider_status": "PASS",
+    "status": "ASSURED"
+  },
+  "claims": [
+    {
+      "assessment": {
+        "evidence": [
+          "1254fc101e56f389cd933ac8220110117c816fae898d52aa4362a3c6568340e7",
+          "9c9f38a5f64d8097cd608984099ff629a6202bb610a070bf1b58b7295ec55ba6",
+          "15e40e6bfa1f22f2410899c479c5440498e784b671f00c13ae20109c39a15bea"
+        ],
+        "scope": "LOCAL_SIGNED_QUANTUM_EXECUTION_REPLAY_AND_TWO_PROCESS_VERIFICATION",
+        "status": "SUPPORTED"
+      },
+      "id": "quantum-execution-coherence",
+      "statement": "The bounded local quantum execution package is internally coherent under the declared replay, signature and two-verifier checks.",
+      "status": "HYPOTHESIS"
+    }
+  ],
+  "consensus": {
+    "finality": "UNKNOWN",
+    "provider": "Sovereign-Lattice",
+    "status": "NOT_RUN"
+  },
+  "cxp_sha256": "8fe0c9456f4c9a64f47aa0e265d3e18972128f7979dc251ac4decdab1ba19dde",
+  "cxp_version": 1,
+  "domain": "quantum",
+  "evidence": {
+    "assurance_package_sha256": "10f790becfe931bd95f8a2039eaece510802c6fc07ce8980a656661067cc820a",
+    "omega_envelope_digest": "9c9f38a5f64d8097cd608984099ff629a6202bb610a070bf1b58b7295ec55ba6",
+    "provider_certificate_sha256": "15e40e6bfa1f22f2410899c479c5440498e784b671f00c13ae20109c39a15bea"
+  },
+  "execution": {
+    "backend": "numpy-statevector",
+    "executor_id": "chimera-quantum-python-v1",
+    "final_state_sha256": "sha256:7d6eef10043ae49f7806b75b32f8d5e174cb8e381449a0b947c428c2cd8e5358",
+    "journal_event_count": 6,
+    "journal_head_sha256": "5d7cda3d649694673ea594a8b6873784aa7b0c92f292282a8f0e710ac233ea84",
+    "provider": "aixaria0/Quantum001",
+    "qubits": 12,
+    "receipt_sha256": "1254fc101e56f389cd933ac8220110117c816fae898d52aa4362a3c6568340e7",
+    "receipt_signature_domain": "chimera.quantum-execution-receipt.v1",
+    "task_id": "cbd817d2-89d3-4736-af85-bdf307409586"
+  },
+  "objective": "Execute and verify the bounded 12-qubit quantum lane",
+  "policy": {
+    "automatic_deployment": false,
+    "automatic_mutation": false,
+    "claim_promotion_requires_evidence": true,
+    "quorum_required": 2,
+    "replay_required": true,
+    "typed_commands_required": true,
+    "unrestricted_execution": false
+  },
+  "run_id": "cbd817d2-89d3-4736-af85-bdf307409586",
+  "schema": "chimera-run/v2",
+  "steps": [
+    {
+      "capability": "quantum001.elevator/v1",
+      "depends_on": [],
+      "id": "quantum-execution",
+      "kind": "execute",
+      "provider": "Quantum001",
+      "state": "CERTIFIED",
+      "trust": {
+        "authority": "bounded",
+        "evidence": "signed-replayable",
+        "mutation": "local-artifacts-only",
+        "network": "none"
+      }
+    }
+  ],
+  "verification": {
+    "execution_receipt": "CONFIRMED",
+    "external_truth": "UNKNOWN",
+    "independent_hosts": "UNKNOWN",
+    "independent_identities": "CONFIRMED",
+    "independent_organizations": "UNKNOWN",
+    "independent_processes": "CONFIRMED",
+    "journal_integrity": "CONFIRMED",
+    "omega_trace_equality": "CONFIRMED",
+    "provider_certificate": "CONFIRMED",
+    "qpu_execution": "UNKNOWN",
+    "replay": "CONFIRMED",
+    "verifier_quorum": "CONFIRMED"
+  }
+}

@@ -1,0 +1,52 @@
+name: Rocket CXP Conformance
+
+on:
+  push:
+    branches: ["rocket-cxp-v1"]
+  pull_request:
+    paths:
+      - "chimera_one/cxp_v2.py"
+      - "chimera_one/rocket.py"
+      - "chimera_one/rocket_full.py"
+      - "tests/test_cxp_v2.py"
+      - "tests/test_rocket_quorum.py"
+      - "tests/test_rocket_full.py"
+      - "tests/fixtures/quantum001-cxp/**"
+      - "examples/rocket/**"
+      - "pyproject.toml"
+      - ".github/workflows/rocket-cxp.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  rocket-cxp:
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.14"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run CXP v2 validator controls
+        run: python -m unittest discover -s tests -p 'test_cxp_v2.py' -v
+      - name: Run Sovereign binding and scope-promotion controls
+        run: python -m unittest discover -s tests -p 'test_rocket_quorum.py' -v
+      - name: Run actual-engine report validator controls
+        run: python -m unittest discover -s tests -p 'test_rocket_full.py' -v
+      - name: Validate retained real Quantum001 CXP digest
+        run: |
+          python - <<'PY'
+          import json
+          from chimera_one.cxp_v2 import validate_run_v2
+          path = 'tests/fixtures/quantum001-cxp/chimera-run-v2.json'
+          run = json.load(open(path, encoding='utf-8'))
+          report = validate_run_v2(run)
+          if not report['valid']:
+              raise SystemExit(report)
+          print(json.dumps(report, sort_keys=True))
+          PY

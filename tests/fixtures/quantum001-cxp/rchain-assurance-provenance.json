@@ -1,0 +1,15 @@
+{
+  "schema": "chimera-cross-repo-fixture-provenance/v1",
+  "producer": "aixaria0/RCHAIN-COMPLIER",
+  "producer_branch": "quantum-cxp-assurance-v1",
+  "producer_commit": "9e8c808ac4b01c2f9bdbf1cefa7b44447d53cf1a",
+  "workflow_run_id": 38019700337,
+  "artifact_name": "assurance-engine-node-22",
+  "artifact_sha256": "933148cd42746593050c207b34004ff0d0215a885171fb85dc5988e7c0b7200f",
+  "cxp_sha256": "8fe0c9456f4c9a64f47aa0e265d3e18972128f7979dc251ac4decdab1ba19dde",
+  "report_status": "PASS",
+  "report_code": "VERIFIED",
+  "distinct_processes": 3,
+  "distinct_verifiers": 2,
+  "note": "Retained from the actual three-process AssuranceEngine run on Node 22. Host and organizational independence, QPU execution, and external truth remain unestablished."
+}

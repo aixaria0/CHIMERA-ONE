@@ -1,0 +1,18 @@
+{
+  "schema": "sovereign-cxp-cluster-finality/v1",
+  "status": "CONFIRMED",
+  "scope": "LOCAL_4_PROCESS_LOOPBACK_PBFT",
+  "digest_sha256": "8fe0c9456f4c9a64f47aa0e265d3e18972128f7979dc251ac4decdab1ba19dde",
+  "total_nodes": 4,
+  "fault_tolerance": 1,
+  "quorum_size": 3,
+  "node_commit_observations": 4,
+  "process_independence": "CONFIRMED",
+  "network_transport": "LOOPBACK_TCP_CONFIRMED",
+  "dkg": "CONFIRMED",
+  "local_cluster_finality": "CONFIRMED",
+  "host_independence": "UNKNOWN",
+  "organizational_independence": "UNKNOWN",
+  "cross_host_finality": "UNKNOWN",
+  "global_finality": "UNKNOWN"
+}
