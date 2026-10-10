@@ -1,0 +1,11 @@
+{
+  "schema": "chimera-cross-repo-fixture-provenance/v1",
+  "producer": "aixaria0/Quantum001",
+  "producer_branch": "cxp-v1-export",
+  "producer_commit": "cadc14aa71b144107523d965419b4df75d1cfd09",
+  "workflow_run_id": 38017935717,
+  "artifact_name": "chimera-quantum-cxp",
+  "artifact_sha256": "8458b6e62fc0f27251197c850bc8b2474ce9ef9a183231a101a839f4d686bf42",
+  "cxp_sha256": "8fe0c9456f4c9a64f47aa0e265d3e18972128f7979dc251ac4decdab1ba19dde",
+  "note": "Retained from a successful Quantum001 GitHub Actions run; used for offline CXP contract conformance only."
+}
