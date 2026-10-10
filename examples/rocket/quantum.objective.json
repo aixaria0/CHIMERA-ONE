@@ -4,5 +4,5 @@
   "domain": "quantum",
   "adapter": "quantum001-elevator/v1",
   "seed": 42,
-  "local_pbft_quorum": true
+  "local_cluster_finality": true
 }
