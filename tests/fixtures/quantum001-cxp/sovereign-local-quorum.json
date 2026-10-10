@@ -1,0 +1,21 @@
+{
+  "schema": "sovereign-cxp-local-quorum/v1",
+  "status": "CONFIRMED",
+  "scope": "LOCAL_IN_PROCESS_PBFT_QUORUM",
+  "digest_sha256": "8fe0c9456f4c9a64f47aa0e265d3e18972128f7979dc251ac4decdab1ba19dde",
+  "view": 0,
+  "sequence": 1,
+  "total_nodes": 4,
+  "fault_tolerance": 1,
+  "quorum_size": 3,
+  "prepared_certificate": "CONFIRMED",
+  "commit_certificate": "CONFIRMED",
+  "commit_certificate_verified": true,
+  "signer_ids": [0, 1, 2],
+  "master_public_key_hex": "a0a1bd241fd7a14111384df0465a49f06c5d43821edb7926fe202c3e43da9f01aa8aed560ac0038a40f06fe7f76bb62c191fa445e292a58158cae920563f27380eecdbbb0e3d583ed3a9d24664f393d541c54e3d14f62e1f2e893389559358d0",
+  "certificate_commitment_sha256": "28b62e2f6395fe97e36be0a9a653de0b10207754614fce47bd27484d9ab213d0",
+  "process_independence": "UNKNOWN",
+  "host_independence": "UNKNOWN",
+  "network_transport": "NOT_RUN",
+  "distributed_finality": "UNKNOWN"
+}
