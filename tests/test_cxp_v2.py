@@ -1,9 +1,12 @@
 from __future__ import annotations
 
-import copy
+import json
+from pathlib import Path
 import unittest
 
 from chimera_one.cxp_v2 import digest_run, validate_run_v2
+
+FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "quantum001-cxp"
 
 
 def valid_run():
@@ -67,6 +70,16 @@ class CxpV2Tests(unittest.TestCase):
     def test_valid_assured_run(self):
         report = validate_run_v2(valid_run())
         self.assertTrue(report["valid"], report)
+
+    def test_retained_quantum001_artifact_conforms(self):
+        run = json.loads((FIXTURE_ROOT / "chimera-run-v2.json").read_text(encoding="utf-8"))
+        provenance = json.loads((FIXTURE_ROOT / "provenance.json").read_text(encoding="utf-8"))
+        report = validate_run_v2(run)
+        self.assertTrue(report["valid"], report)
+        self.assertEqual(run["cxp_sha256"], provenance["cxp_sha256"])
+        self.assertEqual(provenance["producer_commit"], "cadc14aa71b144107523d965419b4df75d1cfd09")
+        self.assertEqual(run["execution"]["provider"], "aixaria0/Quantum001")
+        self.assertEqual(run["authority"]["qpu_execution"], "UNKNOWN")
 
     def test_tamper_is_rejected(self):
         run = valid_run()
