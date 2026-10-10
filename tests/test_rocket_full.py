@@ -1,11 +1,14 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 import unittest
 
 from chimera_one.rocket_full import _validate_omega, _validate_rchain
 
 DIGEST = "8" * 64
 OMEGA_DIGEST = "9" * 64
+FIXTURE_ROOT = Path(__file__).parent / "fixtures" / "quantum001-cxp"
 
 
 def omega_report():
@@ -57,6 +60,24 @@ class FullRocketVerifierTests(unittest.TestCase):
 
     def test_valid_rchain_summary(self):
         self.assertEqual(_validate_rchain(rchain_summary(), expected_digest=DIGEST), [])
+
+    def test_retained_real_rchain_assurance_summary(self):
+        run = json.loads((FIXTURE_ROOT / "chimera-run-v2.json").read_text(encoding="utf-8"))
+        summary = json.loads(
+            (FIXTURE_ROOT / "rchain-assurance-summary.json").read_text(encoding="utf-8")
+        )
+        provenance = json.loads(
+            (FIXTURE_ROOT / "rchain-assurance-provenance.json").read_text(encoding="utf-8")
+        )
+        self.assertEqual(_validate_rchain(summary, expected_digest=run["cxp_sha256"]), [])
+        self.assertEqual(summary["cxpSha256"], run["cxp_sha256"])
+        self.assertEqual(provenance["cxp_sha256"], run["cxp_sha256"])
+        self.assertEqual(provenance["producer_commit"], "9e8c808ac4b01c2f9bdbf1cefa7b44447d53cf1a")
+        self.assertEqual(provenance["artifact_sha256"], "933148cd42746593050c207b34004ff0d0215a885171fb85dc5988e7c0b7200f")
+        self.assertEqual(summary["status"], "PASS")
+        self.assertEqual(summary["reportCode"], "VERIFIED")
+        self.assertEqual(summary["distinctProcesses"], 3)
+        self.assertEqual(summary["distinctVerifiers"], 2)
 
     def test_rchain_digest_mismatch_is_rejected(self):
         errors = _validate_rchain(rchain_summary(), expected_digest="7" * 64)
