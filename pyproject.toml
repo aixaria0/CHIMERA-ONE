@@ -11,7 +11,7 @@ dependencies = []
 
 [project.scripts]
 chimera-one = "chimera_one.cli:main"
-chimera-rocket = "chimera_one.rocket:main"
+chimera-rocket = "chimera_one.rocket_full:main"
 
 [tool.setuptools.packages.find]
 include = ["chimera_one*"]
