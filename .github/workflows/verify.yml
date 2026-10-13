@@ -69,3 +69,46 @@ jobs:
           rs_digest=$(cargo run --quiet --locked -p chimera-protocol -- digest /tmp/run.json)
           test "$py_digest" = "$rs_digest"
           echo "digest=$py_digest"
+
+  epistemic-lattice:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install pinned Rust toolchain
+        run: |
+          rustup toolchain install 1.90.0 --profile minimal
+          rustup override set 1.90.0
+      - name: Acquire exact Nexus sources for semantic audit
+        run: |
+          git init "$RUNNER_TEMP/nexus-quantum"
+          git -C "$RUNNER_TEMP/nexus-quantum" remote add origin https://github.com/aixaria0/nexus-quantum.git
+          git -C "$RUNNER_TEMP/nexus-quantum" fetch --depth=1 origin d1cbd3623f3877c4f2f70b272ff107b81dc30be9
+          git -C "$RUNNER_TEMP/nexus-quantum" checkout --detach FETCH_HEAD
+      - name: Prove the retained overclaim is detected
+        shell: bash
+        run: |
+          set +e
+          cargo run --quiet --locked -p lattice-ir --bin lattice -- nexus-audit examples/nexus-proof-binding/overclaim.json "$RUNNER_TEMP/nexus-quantum" > "$RUNNER_TEMP/nexus-overclaim.json"
+          code=$?
+          set -e
+          test "$code" -eq 4
+          grep -q SEMANTIC_OVERPROMOTION "$RUNNER_TEMP/nexus-overclaim.json"
+          cat "$RUNNER_TEMP/nexus-overclaim.json"
+      - name: Prove reclassification removes only the unsupported promotion
+        run: cargo run --quiet --locked -p lattice-ir --bin lattice -- nexus-audit examples/nexus-proof-binding/reclassified.json "$RUNNER_TEMP/nexus-quantum"
+      - name: Preserve OMEGA unknown dimensions during import
+        run: |
+          cargo run --quiet --locked -p lattice-ir --bin lattice -- omega-import examples/omega/echo.report.json > "$RUNNER_TEMP/omega-vector.json"
+          grep -q '"integrity": "SIGNED"' "$RUNNER_TEMP/omega-vector.json"
+          grep -q '"reproduction": "UNKNOWN"' "$RUNNER_TEMP/omega-vector.json"
+          grep -q '"independence": "UNKNOWN"' "$RUNNER_TEMP/omega-vector.json"
+      - name: Keep failed formal verification at DECLARED and recommend the next evidence action
+        run: |
+          cargo run --quiet --locked -p lattice-ir --bin lattice -- validate examples/lattice/nexus-gap.claim.json
+          cargo run --quiet --locked -p lattice-ir --bin lattice -- next examples/lattice/nexus-gap.claim.json > "$RUNNER_TEMP/next-action.json"
+          grep -q '"action": "ACQUIRE_MACHINE_CHECK"' "$RUNNER_TEMP/next-action.json"
+          grep -q '"from": "DECLARED"' "$RUNNER_TEMP/next-action.json"
+      - name: Prove orthogonal assurance states are incomparable
+        run: |
+          cargo run --quiet --locked -p lattice-ir --bin lattice -- compare examples/lattice/signed-only.vector.json examples/lattice/replayed-only.vector.json > "$RUNNER_TEMP/relation.json"
+          grep -q '"relation": "INCOMPARABLE"' "$RUNNER_TEMP/relation.json"

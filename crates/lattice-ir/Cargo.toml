@@ -1,0 +1,17 @@
+[package]
+name = "lattice-ir"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "Epistemic intermediate representation and non-promotion kernel for CHIMERA-ONE"
+
+[[bin]]
+name = "lattice"
+path = "src/main.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true

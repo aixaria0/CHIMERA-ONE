@@ -1,0 +1,33 @@
+{
+  "schema": "chimera-nexus-semantic-audit/v1",
+  "repository": "aixaria0/nexus-quantum",
+  "revision": "d1cbd3623f3877c4f2f70b272ff107b81dc30be9",
+  "formal_source": {
+    "path": "backend/qlf_math/QLF_NullCone.lean",
+    "sha256": "7b7bcc6888ecf90599d3d3ad68cc2a2ceba7a38b58d29dee4a176df623021c1f"
+  },
+  "runtime_source": {
+    "path": "backend/backend/qlf_verification.py",
+    "sha256": "aaaa581e2e1785293f094abc8af645664e46c28414fc5bf24bf4fff98c9f3900"
+  },
+  "rules": [
+    {
+      "id": "spectral-upper-bound",
+      "runtime_pattern": "Enforce: c ≠ 0 ∧ c ≤ 1 (Lean: NullCone_implies_Consistency)",
+      "claimed_origin": "ENGINEERING_POLICY",
+      "proof_obligations": []
+    },
+    {
+      "id": "gate-count-upper-bound",
+      "runtime_pattern": "Enforce: count ∈ [COUNT_GATE_MIN, COUNT_GATE_MAX] (Lean: pure_zero_count_implies_empty)",
+      "claimed_origin": "ENGINEERING_POLICY",
+      "proof_obligations": []
+    },
+    {
+      "id": "energy-range",
+      "runtime_pattern": "Enforce: energy ∈ [ENERGY_MIN, ENERGY_MAX] (Physical realism)",
+      "claimed_origin": "DOMAIN_PROPERTY",
+      "proof_obligations": []
+    }
+  ]
+}

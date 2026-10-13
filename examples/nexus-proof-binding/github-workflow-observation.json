@@ -1,0 +1,17 @@
+{
+  "schema": "chimera-external-workflow-observation/v1",
+  "repository": "aixaria0/nexus-quantum",
+  "head_sha": "d1cbd3623f3877c4f2f70b272ff107b81dc30be9",
+  "workflow_run_id": 34379861313,
+  "job_id": 102561754859,
+  "workflow_name": "QLF Formal Verification",
+  "job_name": "Machine-check QLF Null Cone",
+  "job_conclusion": "failure",
+  "machine_check_step": {
+    "name": "Machine-check QLF_NullCone",
+    "conclusion": "failure"
+  },
+  "completed_at": "2026-09-09T20:32:11Z",
+  "source_url": "https://api.github.com/repos/aixaria0/nexus-quantum/actions/runs/34379861313/jobs",
+  "authority": "RETAINED_GITHUB_API_OBSERVATION_NOT_A_FORMAL_PROOF"
+}

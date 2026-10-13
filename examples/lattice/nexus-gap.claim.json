@@ -1,0 +1,58 @@
+{
+  "schema": "chimera-epistemic-claim/v1",
+  "id": "nexus-proof-runtime-gap",
+  "statement": "Pinned Nexus formal source is declared, but no accepted model-check witness is supplied and the runtime semantics remain only declared.",
+  "assurance": {
+    "schema": "chimera-assurance-vector/v1",
+    "observation": "UNKNOWN",
+    "integrity": "UNKNOWN",
+    "reproduction": "UNKNOWN",
+    "provenance": "UNKNOWN",
+    "authorization": "UNKNOWN",
+    "independence": "UNKNOWN",
+    "freshness": "UNKNOWN",
+    "adversarial_coverage": "UNKNOWN",
+    "formal_proof": "DECLARED",
+    "implementation_binding": "DECLARED"
+  },
+  "evidence": [
+    {
+      "schema": "chimera-evidence-edge/v1",
+      "dimension": "formal_proof",
+      "from": "UNKNOWN",
+      "to": "DECLARED",
+      "witness": {
+        "schema": "chimera-evidence-witness/v1",
+        "kind": "FORMAL_SOURCE_DECLARATION",
+        "source": "aixaria0/nexus-quantum@d1cbd3623f3877c4f2f70b272ff107b81dc30be9:backend/qlf_math/QLF_NullCone.lean",
+        "authorized_dimensions": [
+          "formal_proof"
+        ],
+        "payload": {
+          "scope": "FORMAL_SOURCE_DECLARED_NOT_MACHINE_CHECKED",
+          "source_sha256": "7b7bcc6888ecf90599d3d3ad68cc2a2ceba7a38b58d29dee4a176df623021c1f"
+        },
+        "digest": "sha256:215d27f1889389020d392074041e52fa3039ac23948f23a7602f69f573920197"
+      }
+    },
+    {
+      "schema": "chimera-evidence-edge/v1",
+      "dimension": "implementation_binding",
+      "from": "UNKNOWN",
+      "to": "DECLARED",
+      "witness": {
+        "schema": "chimera-evidence-witness/v1",
+        "kind": "IMPLEMENTATION_BINDING",
+        "source": "aixaria0/nexus-quantum@d1cbd3623f3877c4f2f70b272ff107b81dc30be9:backend/backend/qlf_verification.py",
+        "authorized_dimensions": [
+          "implementation_binding"
+        ],
+        "payload": {
+          "scope": "DECLARED_RUNTIME_RELATION_ONLY",
+          "source_sha256": "aaaa581e2e1785293f094abc8af645664e46c28414fc5bf24bf4fff98c9f3900"
+        },
+        "digest": "sha256:46804c6ced4ed632f56d61552ec63d5a78c262c99082f7956775e5edb8f90072"
+      }
+    }
+  ]
+}
