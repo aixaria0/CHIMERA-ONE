@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chimera-assurance-vector/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "observation", "integrity", "reproduction", "provenance", "authorization", "independence", "freshness", "adversarial_coverage", "formal_proof", "implementation_binding"],
+  "properties": {
+    "schema": {"const": "chimera-assurance-vector/v1"},
+    "observation": {"enum": ["UNKNOWN", "CLAIMED", "LOCAL", "EXTERNAL"]},
+    "integrity": {"enum": ["UNKNOWN", "DIGEST_BOUND", "SIGNED"]},
+    "reproduction": {"enum": ["UNKNOWN", "REPLAY_VERIFIED", "REEXECUTED"]},
+    "provenance": {"enum": ["UNKNOWN", "SOURCE_DECLARED", "SOURCE_PINNED", "CONTENT_PINNED"]},
+    "authorization": {"enum": ["UNKNOWN", "POLICY_BOUND", "CONFIRMED"]},
+    "independence": {"enum": ["UNKNOWN", "DISTINCT_PROCESS", "DISTINCT_HOST", "DISTINCT_ORGANIZATION"]},
+    "freshness": {"enum": ["UNKNOWN", "TIMESTAMPED", "CHALLENGE_BOUND"]},
+    "adversarial_coverage": {"enum": ["UNKNOWN", "NEGATIVE_CONTROL", "MUTATION_TESTED", "FAULT_INJECTED"]},
+    "formal_proof": {"enum": ["UNKNOWN", "DECLARED", "MODEL_CHECKED"]},
+    "implementation_binding": {"enum": ["UNKNOWN", "DECLARED", "SOURCE_PINNED", "SEMANTICS_BOUND"]}
+  }
+}

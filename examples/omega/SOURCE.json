@@ -1,0 +1,8 @@
+{
+  "schema": "chimera-retained-source/v1",
+  "repository": "aixaria0/CHIMERA-OMEGA",
+  "revision": "9ab2390364fd8c89f29fa46569b58d33ddb61869",
+  "path": "examples/aether-lineage/echo.report.json",
+  "github_blob_sha": "022d51868453aa81d58482a8dcc8f5b548361421",
+  "purpose": "Retained real OMEGA report used to verify non-promotion during LatticeIR import."
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chimera-evidence-witness/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "kind", "source", "authorized_dimensions", "payload", "digest"],
+  "properties": {
+    "schema": {"const": "chimera-evidence-witness/v1"},
+    "kind": {"enum": ["ARTIFACT_OBSERVATION", "DIGEST_BINDING", "SIGNATURE_VERIFICATION", "DETERMINISTIC_REPLAY", "REEXECUTION", "SOURCE_PIN", "POLICY_AUTHORIZATION", "INDEPENDENT_OBSERVATION", "FRESHNESS_CHALLENGE", "NEGATIVE_CONTROL", "FAULT_INJECTION", "FORMAL_SOURCE_DECLARATION", "MODEL_CHECKED_PROOF", "IMPLEMENTATION_BINDING"]},
+    "source": {"type": "string", "minLength": 1},
+    "authorized_dimensions": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["observation", "integrity", "reproduction", "provenance", "authorization", "independence", "freshness", "adversarial_coverage", "formal_proof", "implementation_binding"]}
+    },
+    "payload": {},
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"}
+  }
+}

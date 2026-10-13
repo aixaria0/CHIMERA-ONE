@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chimera-evidence-edge/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "dimension", "from", "to", "witness"],
+  "properties": {
+    "schema": {"const": "chimera-evidence-edge/v1"},
+    "dimension": {"enum": ["observation", "integrity", "reproduction", "provenance", "authorization", "independence", "freshness", "adversarial_coverage", "formal_proof", "implementation_binding"]},
+    "from": {"type": "string"},
+    "to": {"type": "string"},
+    "witness": {"$ref": "witness.schema.json"}
+  }
+}

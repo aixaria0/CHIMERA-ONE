@@ -116,3 +116,8 @@ GitHub Actions separately gate Python/Rust conformance, Rust supply-chain audits
 Objective -> Planner -> Capability Registry -> RitualGraph policy/invariants -> Chimera-AG routing -> Aether execution -> observations -> RCHAIN-COMPLIER assurance -> OMEGA evidence binding -> synthesis with provenance.
 
 See `docs/ARCHITECTURE.md`, `docs/KNOWLEDGE_FABRIC.md`, and the pinned baseline in `docs/BASELINE-2026-10-05.json`.
+
+
+## Epistemic Lattice IR (experimental v1)
+
+`crates/lattice-ir` adds a product-lattice assurance model where evidence dimensions remain independent instead of collapsing into one verification rank. Promotions require content-addressed typed witnesses, OMEGA reports are imported without promoting unknown dimensions, and a pinned Nexus audit demonstrates a real proof/runtime semantic overclaim. See [`docs/EPISTEMIC_LATTICE_IR_V1.md`](docs/EPISTEMIC_LATTICE_IR_V1.md).

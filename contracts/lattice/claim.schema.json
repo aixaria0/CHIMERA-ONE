@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chimera-epistemic-claim/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "statement", "assurance", "evidence"],
+  "properties": {
+    "schema": {"const": "chimera-epistemic-claim/v1"},
+    "id": {"type": "string", "minLength": 1},
+    "statement": {"type": "string", "minLength": 1},
+    "assurance": {"$ref": "assurance-vector.schema.json"},
+    "evidence": {"type": "array", "items": {"$ref": "evidence-edge.schema.json"}}
+  }
+}

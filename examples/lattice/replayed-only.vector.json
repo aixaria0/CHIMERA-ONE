@@ -1,0 +1,13 @@
+{
+  "schema": "chimera-assurance-vector/v1",
+  "observation": "UNKNOWN",
+  "integrity": "UNKNOWN",
+  "reproduction": "REPLAY_VERIFIED",
+  "provenance": "UNKNOWN",
+  "authorization": "UNKNOWN",
+  "independence": "UNKNOWN",
+  "freshness": "UNKNOWN",
+  "adversarial_coverage": "UNKNOWN",
+  "formal_proof": "UNKNOWN",
+  "implementation_binding": "UNKNOWN"
+}
